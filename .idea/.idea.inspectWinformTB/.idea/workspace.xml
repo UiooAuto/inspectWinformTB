@@ -5,55 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinform/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.csprojAssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Form1.resources" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Properties.Resources.resources" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CopyComplete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform.sln" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/App.config" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/App.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/ConnectInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/ConnectInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Form1.resx" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.resx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/InspectUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Properties/AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Properties/Resources.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Properties/Resources.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Properties/Resources.resx" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Properties/Resources.resx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Properties/Settings.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Properties/Settings.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Properties/Settings.settings" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Properties/Settings.settings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/Debug/Newtonsoft.Json.dll" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/Newtonsoft.Json.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/Debug/Newtonsoft.Json.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/Newtonsoft.Json.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/Debug/inspectWinform.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/Debug/inspectWinform.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/Debug/inspectWinform.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/inspectWinform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/inspectWinformTB.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.Form1.resources" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.Form1.resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.Properties.Resources.resources" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.Properties.Resources.resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.csproj.CopyComplete" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.csproj.CopyComplete" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinform.csproj.GenerateResource.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.csprojAssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/obj/Debug/inspectWinform.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinform/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/packages.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB/bin/startInspect.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/inspectWinformTB.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/inspectWinformTB.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +31,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <changedPaths>
+      <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Program.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -107,14 +87,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1621301364148</updated>
-      <workItem from="1621301375096" duration="520000" />
+      <workItem from="1621301375096" duration="873000" />
+      <workItem from="1621302287340" duration="469000" />
+      <workItem from="1621302823705" duration="165000" />
+      <workItem from="1621303376809" duration="607000" />
+      <workItem from="1621304004228" duration="6912000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -126,6 +110,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

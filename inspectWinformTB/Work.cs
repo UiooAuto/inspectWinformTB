@@ -20,6 +20,7 @@ namespace inspectWinformTB
         public string result;
         public bool san = true;
         private string lastCmd = "";
+        public int camMode;
 
         public string testStr = Thread.CurrentThread.Name;
 
@@ -49,7 +50,47 @@ namespace inspectWinformTB
                     {
                         result = readInspect(plcCmd);
                     }
-                    if (result == "1")
+
+                    if (camMode == 1)//仅开启上面的相机
+                    {
+                        if (result == "2")//上ok下ng
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                        else
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                    }else if (camMode == 2)
+                    {
+                        if (result == "3")//上ng下ok
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                        else
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                    }else if (camMode == 3)
+                    {
+                        if (result == "1")//上下都ok
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                        else
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                    }
+                    /*
+                     //原本的同步触发程序
+                     if (result == "1")
                     {
                         setPlcCmd(plcSocket, camResAds, " 0001\r\n");
                         setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
@@ -68,7 +109,7 @@ namespace inspectWinformTB
                     {
                         setPlcCmd(plcSocket, camResAds, " 0004\r\n");
                         setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    }
+                    }*/
                     result = "";
                     Thread.Sleep(100);
                 }

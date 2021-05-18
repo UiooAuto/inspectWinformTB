@@ -30,6 +30,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.savePath = new System.Windows.Forms.Button();
             this.save = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.cmdCam1 = new System.Windows.Forms.Button();
@@ -48,12 +49,18 @@
             this.label14 = new System.Windows.Forms.Label();
             this.trigger1 = new System.Windows.Forms.TextBox();
             this.result1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.autoConTimeSet = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cam1En = new System.Windows.Forms.CheckBox();
+            this.cam2En = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.groupBox1.Controls.Add(this.savePath);
             this.groupBox1.Controls.Add(this.save);
             this.groupBox1.Controls.Add(this.ExitButton);
             this.groupBox1.Controls.Add(this.cmdCam1);
@@ -70,10 +77,21 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // savePath
+            // 
+            this.savePath.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
+            this.savePath.Location = new System.Drawing.Point(27, 353);
+            this.savePath.Name = "savePath";
+            this.savePath.Size = new System.Drawing.Size(214, 33);
+            this.savePath.TabIndex = 11;
+            this.savePath.Text = "打开参数保存位置";
+            this.savePath.UseVisualStyleBackColor = true;
+            this.savePath.Click += new System.EventHandler(this.savePath_Click);
+            // 
             // save
             // 
             this.save.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.save.Location = new System.Drawing.Point(27, 353);
+            this.save.Location = new System.Drawing.Point(27, 319);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(214, 33);
             this.save.TabIndex = 10;
@@ -166,7 +184,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.label5.Location = new System.Drawing.Point(300, 102);
+            this.label5.Location = new System.Drawing.Point(298, 117);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 32);
             this.label5.TabIndex = 4;
@@ -176,7 +194,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.label8.Location = new System.Drawing.Point(538, 101);
+            this.label8.Location = new System.Drawing.Point(536, 116);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 32);
             this.label8.TabIndex = 4;
@@ -186,7 +204,7 @@
             // plcIp1
             // 
             this.plcIp1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.plcIp1.Location = new System.Drawing.Point(380, 105);
+            this.plcIp1.Location = new System.Drawing.Point(378, 120);
             this.plcIp1.Name = "plcIp1";
             this.plcIp1.Size = new System.Drawing.Size(152, 29);
             this.plcIp1.TabIndex = 6;
@@ -195,7 +213,7 @@
             // plcPort1
             // 
             this.plcPort1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.plcPort1.Location = new System.Drawing.Point(618, 105);
+            this.plcPort1.Location = new System.Drawing.Point(616, 120);
             this.plcPort1.Name = "plcPort1";
             this.plcPort1.Size = new System.Drawing.Size(152, 29);
             this.plcPort1.TabIndex = 9;
@@ -207,7 +225,7 @@
             this.connectAll.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
             this.connectAll.Location = new System.Drawing.Point(307, 391);
             this.connectAll.Name = "connectAll";
-            this.connectAll.Size = new System.Drawing.Size(453, 38);
+            this.connectAll.Size = new System.Drawing.Size(461, 38);
             this.connectAll.TabIndex = 14;
             this.connectAll.Text = "连接";
             this.connectAll.UseVisualStyleBackColor = false;
@@ -216,7 +234,7 @@
             // label11
             // 
             this.label11.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.label11.Location = new System.Drawing.Point(314, 158);
+            this.label11.Location = new System.Drawing.Point(306, 182);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(105, 32);
             this.label11.TabIndex = 15;
@@ -226,7 +244,7 @@
             // label14
             // 
             this.label14.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.label14.Location = new System.Drawing.Point(538, 158);
+            this.label14.Location = new System.Drawing.Point(530, 182);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 32);
             this.label14.TabIndex = 18;
@@ -236,20 +254,74 @@
             // trigger1
             // 
             this.trigger1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.trigger1.Location = new System.Drawing.Point(413, 158);
+            this.trigger1.Location = new System.Drawing.Point(405, 182);
             this.trigger1.Name = "trigger1";
-            this.trigger1.Size = new System.Drawing.Size(119, 29);
+            this.trigger1.Size = new System.Drawing.Size(125, 29);
             this.trigger1.TabIndex = 21;
             this.trigger1.Text = "6030";
             // 
             // result1
             // 
             this.result1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
-            this.result1.Location = new System.Drawing.Point(649, 158);
+            this.result1.Location = new System.Drawing.Point(641, 182);
             this.result1.Name = "result1";
-            this.result1.Size = new System.Drawing.Size(119, 29);
+            this.result1.Size = new System.Drawing.Size(127, 29);
             this.result1.TabIndex = 24;
             this.result1.Text = "6032";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(646, 61);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(78, 23);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "自动连接等待";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // autoConTimeSet
+            // 
+            this.autoConTimeSet.Location = new System.Drawing.Point(719, 63);
+            this.autoConTimeSet.Name = "autoConTimeSet";
+            this.autoConTimeSet.Size = new System.Drawing.Size(23, 21);
+            this.autoConTimeSet.TabIndex = 26;
+            this.autoConTimeSet.Text = "10";
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(748, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 23);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "秒";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cam1En
+            // 
+            this.cam1En.Checked = true;
+            this.cam1En.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cam1En.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
+            this.cam1En.Location = new System.Drawing.Point(298, 257);
+            this.cam1En.Name = "cam1En";
+            this.cam1En.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cam1En.Size = new System.Drawing.Size(232, 24);
+            this.cam1En.TabIndex = 30;
+            this.cam1En.Text = "启用上面胶条检测相机";
+            this.cam1En.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cam1En.UseVisualStyleBackColor = true;
+            // 
+            // cam2En
+            // 
+            this.cam2En.Checked = true;
+            this.cam2En.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cam2En.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (134)));
+            this.cam2En.Location = new System.Drawing.Point(298, 319);
+            this.cam2En.Name = "cam2En";
+            this.cam2En.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cam2En.Size = new System.Drawing.Size(232, 24);
+            this.cam2En.TabIndex = 31;
+            this.cam2En.Text = "启用下面胶条检测相机";
+            this.cam2En.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cam2En.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -257,6 +329,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cam2En);
+            this.Controls.Add(this.cam1En);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.autoConTimeSet);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.result1);
             this.Controls.Add(this.trigger1);
             this.Controls.Add(this.label14);
@@ -277,6 +354,19 @@
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.CheckBox cam1En;
+        private System.Windows.Forms.CheckBox cam2En;
+
+        private System.Windows.Forms.CheckBox checkBox2;
+
+        private System.Windows.Forms.CheckBox checkBox1;
+
+        private System.Windows.Forms.Label label7;
+        
+        private System.Windows.Forms.Label label6;
+
+        private System.Windows.Forms.Button savePath;
+
         private System.Windows.Forms.Button save;
 
         private System.Windows.Forms.TextBox result1;
@@ -295,7 +385,7 @@
 
         private System.Windows.Forms.Button connectAll;
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox autoConTimeSet;
 
         private System.Windows.Forms.TextBox plcIp1;
 

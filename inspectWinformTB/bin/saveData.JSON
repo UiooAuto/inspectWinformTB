@@ -1,1 +1,1 @@
-{"inspectIp":"127.0.0.1","inspectPort":"5024","plcIp1":"192.168.0.2","plcPort1":"12289","plcIp2":null,"plcPort2":null,"plcIp3":null,"plcPort3":null,"cam1CmdAds":"5950","cam1ResAds":"5952","cam2CmdAds":null,"cam2ResAds":null,"cam3CmdAds":null,"cam3ResAds":null}
+{"inspectIp":"127.0.0.1","inspectPort":"5024","plcIp1":"127.0.0.1","plcPort1":"12289","cam1CmdAds":"5950","cam1ResAds":"5952","autoConnTime":"5"}

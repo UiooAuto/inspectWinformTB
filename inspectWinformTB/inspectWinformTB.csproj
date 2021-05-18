@@ -51,6 +51,12 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AllConnectData.cs" />
+        <Compile Include="AutoConnectForm.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="AutoConnectForm.Designer.cs">
+          <DependentUpon>AutoConnectForm.cs</DependentUpon>
+        </Compile>
         <Compile Include="ConnectInfo.cs" />
         <Compile Include="Form1.cs">
             <SubType>Form</SubType>

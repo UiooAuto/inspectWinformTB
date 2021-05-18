@@ -1,0 +1,1 @@
+start C:\"Program Files"\"Teledyne DALSA"\"iNspect Express x64"\iworks loopback 5005 EN

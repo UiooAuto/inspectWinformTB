@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using inspectWinform;
 using Newtonsoft.Json;
 
 namespace inspectWinformTB
@@ -18,8 +20,11 @@ namespace inspectWinformTB
     {
         private AllConnectData allConnectData = new AllConnectData();
 
-        string path = Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")) +
-                      "\\saveData.JSON"; //xml文件地址
+        string filePath = Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")) +
+                          "\\saveData.JSON"; //xml文件地址
+
+        private string inspectPath = Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")) +
+                                     "\\startInspect.bat"; //批处理文件启动inspect路径
 
         //inspect和plc的连接信息
         ConnectInfo inspectConnectInfo;
@@ -54,6 +59,26 @@ namespace inspectWinformTB
         /// </summary>
         public void init()
         {
+            //查询inspect是否已启动，未启动则自动启动
+            bool inspectRun = false;
+
+            //拉取进程列表
+            Process[] processes = Process.GetProcesses();
+            //查找有没有inspect的进程
+            foreach (Process process in processes)
+            {
+                if (process.ProcessName.Equals("iworks"))
+                {
+                    inspectRun = true;
+                }
+            }
+
+            //没有找到说明inspect没启动，启动inspect
+            if (!inspectRun)
+            {
+                Process.Start(inspectPath);
+            }
+
             //取消关闭安妮
             this.ControlBox = false;
             //新建Socket连接
@@ -71,11 +96,27 @@ namespace inspectWinformTB
             trigger1.Text = allConnectData.cam1CmdAds;
             result1.Text = allConnectData.cam1ResAds;
 
-            //给PLC连接地址赋值
-            if (!isEmpty(trigger1.Text) && !isEmpty(result1.Text))
+            autoConTimeSet.Text = allConnectData.autoConnTime;
+
+            //创建窗口对象
+            AutoConnectForm autoConnectForm = new AutoConnectForm();
+            //如果文件中没有保存等待时间，则默认为10
+            if (isEmpty(allConnectData.autoConnTime))
             {
-                cam1CmdAds = "D" + trigger1.Text + " 01";
-                cam1ResAds = "D" + result1.Text + " 01";
+                autoConnectForm.autoConnTime = "10";
+            }
+            else
+            {
+                autoConnectForm.autoConnTime = allConnectData.autoConnTime;
+            }
+
+            //运行窗口，阻塞主体程序运行
+            autoConnectForm.ShowDialog();
+
+            if (autoConnectForm.autoConn)
+            {
+                //开始连接
+                startConnect();
             }
         }
 
@@ -85,11 +126,25 @@ namespace inspectWinformTB
 
         private void connectAll_Click(object sender, EventArgs e)
         {
+            startConnect();
+        }
+
+        #endregion
+
+        #region 连接功能
+
+        private void startConnect()
+        {
             //给PLC连接地址赋值
             if (!isEmpty(trigger1.Text) && !isEmpty(result1.Text))
             {
                 cam1CmdAds = "D" + trigger1.Text + " 01";
                 cam1ResAds = "D" + result1.Text + " 01";
+            }
+            else
+            {
+                cam1CmdAds = null;
+                cam1ResAds = null;
             }
 
             //当在有链接的时候点击，需要关闭所有连接
@@ -126,6 +181,19 @@ namespace inspectWinformTB
                 work1.camCmdAds = cam1CmdAds;
                 work1.camResAds = cam1ResAds;
                 work1.san = true;
+                if (cam1En.Checked && !cam2En.Checked)
+                {
+                    work1.camMode = 1;
+                }
+                else if (!cam1En.Checked && cam2En.Checked)
+                {
+                    work1.camMode = 2;
+                }
+                else if (cam1En.Checked && cam2En.Checked)
+                {
+                    work1.camMode = 3;
+                }
+
                 Thread thread1 = new Thread(new ThreadStart(work1.go));
                 thread1.Name = "cam1";
                 thread1.Start();
@@ -207,26 +275,44 @@ namespace inspectWinformTB
         {
             string str = "c1;";
             InspectUtilsTB.sendCmdToTarget(inspectSocket, str);
-            MessageBox.Show("已发送");
             var receiveData = InspectUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
-            MessageBox.Show("已接收:" + receiveData);
-            if (receiveData == "1")
+            if (work1.camMode == 1)//仅开启上面的相机
             {
-                setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
-            }
-            else if (receiveData == "2")
+                if (receiveData == "2")//上ok下ng
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+                else
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+            }else if (work1.camMode == 2)
             {
-                setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
-            }
-            else if (receiveData == "3")
+                if (receiveData == "3")//上ng下ok
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+                else
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+            }else if (work1.camMode == 3)
             {
-                setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
+                if (receiveData == "1")//上下都ok
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+                else
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
             }
-            else if (receiveData == "4")
-            {
-                setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
-            }
-            setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
         }
 
         #endregion
@@ -248,6 +334,8 @@ namespace inspectWinformTB
                 plcSocket1.Close();
                 plcSocket1 = null;
             }
+
+            work1.camMode = 0;
             connectStatus = false;
         }
 
@@ -266,6 +354,9 @@ namespace inspectWinformTB
 
                 trigger1.ReadOnly = true;
                 result1.ReadOnly = true;
+
+                cam1En.Enabled = false;
+                cam2En.Enabled = false;
             }
             else
             {
@@ -276,6 +367,9 @@ namespace inspectWinformTB
 
                 trigger1.ReadOnly = false;
                 result1.ReadOnly = false;
+                
+                cam1En.Enabled = true;
+                cam2En.Enabled = true;
             }
         }
 
@@ -296,7 +390,7 @@ namespace inspectWinformTB
 
         #endregion
 
-        #region 保存连接数据
+        #region 保存、读取连接数据
 
         public void saveDatas()
         {
@@ -308,14 +402,16 @@ namespace inspectWinformTB
             allConnectData.cam1CmdAds = trigger1.Text;
             allConnectData.cam1ResAds = result1.Text;
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(allConnectData));
+            allConnectData.autoConnTime = autoConTimeSet.Text;
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(allConnectData));
         }
 
         public void readSaveData()
         {
-            if (File.Exists(path))
+            if (File.Exists(filePath))
             {
-                string readAllText = File.ReadAllText(path, Encoding.UTF8);
+                string readAllText = File.ReadAllText(filePath, Encoding.UTF8);
                 if (!isEmpty(readAllText))
                 {
                     try
@@ -330,7 +426,7 @@ namespace inspectWinformTB
             }
             else
             {
-                FileStream fileStream = File.Create(path);
+                FileStream fileStream = File.Create(filePath);
                 fileStream.Close();
             }
         }
@@ -351,6 +447,11 @@ namespace inspectWinformTB
         private void save_Click(object sender, EventArgs e)
         {
             saveDatas();
+        }
+
+        private void savePath_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "/select," + filePath);
         }
     }
 }
