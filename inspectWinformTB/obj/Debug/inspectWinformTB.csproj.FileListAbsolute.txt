@@ -1,0 +1,13 @@
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.exe.config
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.exe
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.pdb
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\bin\Debug\Newtonsoft.Json.dll
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\bin\Debug\Newtonsoft.Json.xml
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csprojAssemblyReference.cache
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.Form1.resources
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.Properties.Resources.resources
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.GenerateResource.cache
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CoreCompileInputs.cache
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CopyComplete
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.exe
+D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.pdb
