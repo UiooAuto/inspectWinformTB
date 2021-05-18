@@ -276,40 +276,52 @@ namespace inspectWinformTB
             string str = "c1;";
             InspectUtilsTB.sendCmdToTarget(inspectSocket, str);
             var receiveData = InspectUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
-            if (work1.camMode == 1)//仅开启上面的相机
+            if (work1.camMode == 1) //仅开启上面的相机
             {
-                if (receiveData == "2")//上ok下ng
+                if (receiveData == "2") //上ok下ng
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
                 else
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //给PLC发送3代表上面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
-            }else if (work1.camMode == 2)
+            }
+            else if (work1.camMode == 2)
             {
-                if (receiveData == "3")//上ng下ok
+                if (receiveData == "3") //上ng下ok
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
                 else
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n"); //2代表下面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
-            }else if (work1.camMode == 3)
+            }
+            else if (work1.camMode == 3)//上下面相机都正常工作
             {
-                if (receiveData == "1")//上下都ok
+                if (receiveData == "1") //上下都ok
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
-                else
+                else if (receiveData == "2") //上OK下NG
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+                else if (receiveData == "3") //上NG下OK
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
+                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                }
+                else if (receiveData == "4") //上下都NG
+                {
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                 }
             }
@@ -367,7 +379,7 @@ namespace inspectWinformTB
 
                 trigger1.ReadOnly = false;
                 result1.ReadOnly = false;
-                
+
                 cam1En.Enabled = true;
                 cam2En.Enabled = true;
             }

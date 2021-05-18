@@ -60,10 +60,10 @@ namespace inspectWinformTB
                         }
                         else
                         {
-                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                            setPlcCmd(plcSocket, camResAds, " 0003\r\n");//3代表上面NG
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
                         }
-                    }else if (camMode == 2)
+                    }else if (camMode == 2)//仅开启下面的相机
                     {
                         if (result == "3")//上ng下ok
                         {
@@ -72,44 +72,32 @@ namespace inspectWinformTB
                         }
                         else
                         {
-                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");//2代表下面NG
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
                         }
                     }else if (camMode == 3)
                     {
-                        if (result == "1")//上下都ok
+                        if (result == "1")
                         {
                             setPlcCmd(plcSocket, camResAds, " 0001\r\n");
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
                         }
-                        else
+                        else if (result == "2")
                         {
                             setPlcCmd(plcSocket, camResAds, " 0002\r\n");
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
                         }
+                        else if (result == "3")
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0003\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
+                        else if (result == "4")
+                        {
+                            setPlcCmd(plcSocket, camResAds, " 0004\r\n");
+                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                        }
                     }
-                    /*
-                     //原本的同步触发程序
-                     if (result == "1")
-                    {
-                        setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                        setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    }
-                    else if (result == "2")
-                    {
-                        setPlcCmd(plcSocket, camResAds, " 0002\r\n");
-                        setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    }
-                    else if (result == "3")
-                    {
-                        setPlcCmd(plcSocket, camResAds, " 0003\r\n");
-                        setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    }
-                    else if (result == "4")
-                    {
-                        setPlcCmd(plcSocket, camResAds, " 0004\r\n");
-                        setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    }*/
                     result = "";
                     Thread.Sleep(100);
                 }

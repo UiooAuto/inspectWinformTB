@@ -4,23 +4,13 @@
     <projectFile>inspectWinformTB/inspectWinformTB.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/bin/startInspect.bat" afterDir="false" />
+    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="可选上面或下面相机基本功能实现">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/inspectWinformTB.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/inspectWinformTB.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
@@ -36,11 +26,11 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Program.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
@@ -91,8 +81,16 @@
       <workItem from="1621302287340" duration="469000" />
       <workItem from="1621302823705" duration="165000" />
       <workItem from="1621303376809" duration="607000" />
-      <workItem from="1621304004228" duration="6912000" />
+      <workItem from="1621304004228" duration="9470000" />
     </task>
+    <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
+      <created>1621315645571</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1621315645571</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,5 +116,7 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="可选上面或下面相机基本功能实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="可选上面或下面相机基本功能实现" />
   </component>
 </project>

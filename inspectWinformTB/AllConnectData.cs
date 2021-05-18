@@ -11,5 +11,8 @@
         public string cam1ResAds;
 
         public string autoConnTime;
+
+        public bool cam1En;
+        public bool cam2En;
     }
 }
