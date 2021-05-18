@@ -98,6 +98,9 @@ namespace inspectWinformTB
 
             autoConTimeSet.Text = allConnectData.autoConnTime;
 
+            cam1En.Checked = allConnectData.cam1En;
+            cam2En.Checked = allConnectData.cam2En;
+
             //创建窗口对象
             AutoConnectForm autoConnectForm = new AutoConnectForm();
             //如果文件中没有保存等待时间，则默认为10
@@ -209,6 +212,11 @@ namespace inspectWinformTB
         /// </summary>
         public void connectAllcon()
         {
+            if (!cam1En.Checked && !cam2En.Checked)
+            {
+                MessageBox.Show("至少开启一个相机");
+                return;
+            }
             //用于标识是否有连接建立成功
             bool flag = false;
             //只有在有连接参数的时候才连接
@@ -415,6 +423,9 @@ namespace inspectWinformTB
             allConnectData.cam1ResAds = result1.Text;
 
             allConnectData.autoConnTime = autoConTimeSet.Text;
+
+            allConnectData.cam1En = cam1En.Checked;
+            allConnectData.cam2En = cam2En.Checked;
 
             File.WriteAllText(filePath, JsonConvert.SerializeObject(allConnectData));
         }
