@@ -14,5 +14,7 @@
 
         public bool cam1En;
         public bool cam2En;
+        
+        public string delayStartInspect;
     }
 }

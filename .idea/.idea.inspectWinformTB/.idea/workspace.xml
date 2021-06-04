@@ -4,9 +4,8 @@
     <projectFile>inspectWinformTB/inspectWinformTB.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
+    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="---">
       <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
@@ -26,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="152604d2f264f6105c0e2aa671e4d6ecdf6a348f" />
+        <entry key="$PROJECT_DIR$" value="249a71640c9f188b4c26e035cc5a37af373f6c34" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,12 +35,12 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Program.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
@@ -121,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621318613804</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="---">
+      <created>1622827026705</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622827026705</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +156,7 @@
     <MESSAGE value="可选上面或下面相机基本功能实现" />
     <MESSAGE value="确认后新通信协议修改" />
     <MESSAGE value="相机选择的参数可保存" />
-    <option name="LAST_COMMIT_MESSAGE" value="相机选择的参数可保存" />
+    <MESSAGE value="---" />
+    <option name="LAST_COMMIT_MESSAGE" value="---" />
   </component>
 </project>

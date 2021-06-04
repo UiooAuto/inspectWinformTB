@@ -62,23 +62,6 @@ namespace inspectWinformTB
             //查询inspect是否已启动，未启动则自动启动
             bool inspectRun = false;
 
-            //拉取进程列表
-            Process[] processes = Process.GetProcesses();
-            //查找有没有inspect的进程
-            foreach (Process process in processes)
-            {
-                if (process.ProcessName.Equals("iworks"))
-                {
-                    inspectRun = true;
-                }
-            }
-
-            //没有找到说明inspect没启动，启动inspect
-            if (!inspectRun)
-            {
-                Process.Start(inspectPath);
-            }
-
             //取消关闭安妮
             this.ControlBox = false;
             //新建Socket连接
@@ -118,6 +101,34 @@ namespace inspectWinformTB
 
             if (autoConnectForm.autoConn)
             {
+                //拉取进程列表
+                Process[] processes = Process.GetProcesses();
+                //查找有没有inspect的进程
+                foreach (Process process in processes)
+                {
+                    if (process.ProcessName.Equals("iworks"))
+                    {
+                        inspectRun = true;
+                    }
+                }
+
+                //没有找到说明inspect没启动，启动inspect
+                if (!inspectRun)
+                {
+                    Process.Start(inspectPath);
+                    
+                    if (isEmpty(allConnectData.delayStartInspect))
+                    {
+                        Thread.Sleep(5000);
+                        autoStartInspectTime.Text = "5";
+                    }
+                    else
+                    {
+                        autoStartInspectTime.Text = allConnectData.delayStartInspect;
+                        Thread.Sleep(int.Parse(allConnectData.delayStartInspect)*1000);
+                    }
+                }
+
                 //开始连接
                 startConnect();
             }
@@ -426,6 +437,8 @@ namespace inspectWinformTB
 
             allConnectData.cam1En = cam1En.Checked;
             allConnectData.cam2En = cam2En.Checked;
+            
+            allConnectData.delayStartInspect = autoStartInspectTime.Text;
 
             File.WriteAllText(filePath, JsonConvert.SerializeObject(allConnectData));
         }
