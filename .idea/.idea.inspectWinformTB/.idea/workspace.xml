@@ -4,12 +4,17 @@
     <projectFile>inspectWinformTB/inspectWinformTB.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="确认后新通信协议修改">
+    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
@@ -19,7 +24,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="152604d2f264f6105c0e2aa671e4d6ecdf6a348f" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -27,8 +38,9 @@
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Program.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
     </changedPaths>
   </component>
@@ -80,7 +92,13 @@
       <workItem from="1621302287340" duration="469000" />
       <workItem from="1621302823705" duration="165000" />
       <workItem from="1621303376809" duration="607000" />
-      <workItem from="1621304004228" duration="10089000" />
+      <workItem from="1621304004228" duration="17256000" />
+      <workItem from="1621328669806" duration="6000" />
+      <workItem from="1621329075585" duration="1057000" />
+      <workItem from="1622175636096" duration="203000" />
+      <workItem from="1622248544154" duration="601000" />
+      <workItem from="1622726698275" duration="1024000" />
+      <workItem from="1622825225075" duration="799000" />
     </task>
     <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
       <created>1621315645571</created>
@@ -96,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621318037015</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="相机选择的参数可保存">
+      <created>1621318613804</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1621318613804</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +149,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="可选上面或下面相机基本功能实现" />
     <MESSAGE value="确认后新通信协议修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="确认后新通信协议修改" />
+    <MESSAGE value="相机选择的参数可保存" />
+    <option name="LAST_COMMIT_MESSAGE" value="相机选择的参数可保存" />
   </component>
 </project>
