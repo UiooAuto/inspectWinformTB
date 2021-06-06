@@ -4,16 +4,18 @@
     <projectFile>inspectWinformTB/inspectWinformTB.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="---">
-      <change afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" afterDir="false" />
+    <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/Camera.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.resx" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.resx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Form1.resources" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Form1.resources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
@@ -39,8 +41,8 @@
       <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
@@ -98,6 +100,7 @@
       <workItem from="1622248544154" duration="601000" />
       <workItem from="1622726698275" duration="1024000" />
       <workItem from="1622825225075" duration="799000" />
+      <workItem from="1622987639462" duration="2450000" />
     </task>
     <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
       <created>1621315645571</created>
@@ -127,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622827026705</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="功能同步更新">
+      <created>1622827324576</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622827324576</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +167,7 @@
     <MESSAGE value="确认后新通信协议修改" />
     <MESSAGE value="相机选择的参数可保存" />
     <MESSAGE value="---" />
-    <option name="LAST_COMMIT_MESSAGE" value="---" />
+    <MESSAGE value="功能同步更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="功能同步更新" />
   </component>
 </project>

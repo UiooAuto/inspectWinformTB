@@ -131,6 +131,7 @@ namespace inspectWinformTB
 
                 //开始连接
                 startConnect();
+                minWindow();
             }
         }
 
@@ -149,6 +150,8 @@ namespace inspectWinformTB
 
         private void startConnect()
         {
+            testMsg.Text = "无";
+            testMsg.BackColor = Color.Silver;
             //给PLC连接地址赋值
             if (!isEmpty(trigger1.Text) && !isEmpty(result1.Text))
             {
@@ -293,6 +296,8 @@ namespace inspectWinformTB
         private void cmdCam1_Click(object sender, EventArgs e)
         {
             string str = "c1;";
+            testMsg.Text = "无";
+            testMsg.BackColor = Color.Silver;
             InspectUtilsTB.sendCmdToTarget(inspectSocket, str);
             var receiveData = InspectUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             if (work1.camMode == 1) //仅开启上面的相机
@@ -301,11 +306,15 @@ namespace inspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "上面胶条 OK";
+                    testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //给PLC发送3代表上面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "上面胶条 NG";
+                    testMsg.BackColor = Color.Red;
                 }
             }
             else if (work1.camMode == 2)
@@ -314,11 +323,15 @@ namespace inspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "下面胶条 OK";
+                    testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n"); //2代表下面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "下面胶条 NG";
+                    testMsg.BackColor = Color.Red;
                 }
             }
             else if (work1.camMode == 3)//上下面相机都正常工作
@@ -327,21 +340,29 @@ namespace inspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "全部OK";
+                    testMsg.BackColor = Color.LimeGreen;
                 }
                 else if (receiveData == "2") //上OK下NG
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "下面胶条NG";
+                    testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "3") //上NG下OK
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "上面胶条NG";
+                    testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "4") //上下都NG
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    testMsg.Text = "全部NG";
+                    testMsg.BackColor = Color.Red;
                 }
             }
         }
@@ -474,7 +495,7 @@ namespace inspectWinformTB
         private string setPlcCmd(Socket socket, string plcAddress, string setResult)
         {
             string rtn = InspectUtilsTB.sendCmdToTarget(socket, "01WWR" + plcAddress + setResult + "\r\n");
-            MessageBox.Show("01WWR" + plcAddress + setResult + "\r\n");
+            //MessageBox.Show("01WWR" + plcAddress + setResult + "\r\n");
             return rtn;
         }
 
@@ -489,5 +510,90 @@ namespace inspectWinformTB
         {
             Process.Start("explorer.exe", "/select," + filePath);
         }
+
+         #region 手动打开Inspect
+
+        private void handStartInspect_Click(object sender, EventArgs e)
+        {
+            bool inspectRun = false;
+            //拉取进程列表
+            Process[] processes = Process.GetProcesses();
+            //查找有没有inspect的进程
+            foreach (Process process in processes)
+            {
+                if (process.ProcessName.Equals("iworks"))
+                {
+                    inspectRun = true;
+                }
+            }
+
+            //没有找到说明inspect没启动，启动inspect
+            if (!inspectRun)
+            {
+                Process.Start(inspectPath);
+
+                if (isEmpty(allConnectData.delayStartInspect))
+                {
+                    Thread.Sleep(5000);
+                    autoStartInspectTime.Text = "5";
+                }
+                else
+                {
+                    autoStartInspectTime.Text = allConnectData.delayStartInspect;
+                    Thread.Sleep(int.Parse(allConnectData.delayStartInspect) * 1000);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Inspect已启动");
+            }
+        }
+
+        #endregion
+
+        #region 点击系统托盘图标，还原程序窗口
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                //还原窗体显示    
+                WindowState = FormWindowState.Normal;
+                //激活窗体并给予它焦点
+                this.Activate();
+                //任务栏区显示图标
+                this.ShowInTaskbar = true;
+                //托盘区图标隐藏
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        #endregion
+
+        #region 将程序最小化到托盘
+
+        private void minWindow()
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                //还原窗体显示    
+                WindowState = FormWindowState.Minimized;
+                //任务栏区显示图标
+                this.ShowInTaskbar = false;
+                //托盘区图标隐藏
+                notifyIcon1.Visible = true;
+            }
+        }
+
+        #endregion
+
+        #region 点击最小化按钮事件
+
+        private void minForm_Click(object sender, EventArgs e)
+        {
+            minWindow();
+        }
+
+        #endregion
     }
 }
