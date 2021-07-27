@@ -53,7 +53,7 @@ namespace inspectWinformTB
 
                     if (camMode == 1)//仅开启上面的相机
                     {
-                        if (result == "2")//上ok下ng
+                        if (result == "2" || result == "1")//上ok下ng
                         {
                             setPlcCmd(plcSocket, camResAds, " 0001\r\n");
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
@@ -65,7 +65,7 @@ namespace inspectWinformTB
                         }
                     }else if (camMode == 2)//仅开启下面的相机
                     {
-                        if (result == "3")//上ng下ok
+                        if (result == "3" || result == "1")//上ng下ok
                         {
                             setPlcCmd(plcSocket, camResAds, " 0001\r\n");
                             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");

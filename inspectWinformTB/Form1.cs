@@ -302,7 +302,7 @@ namespace inspectWinformTB
             var receiveData = InspectUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             if (work1.camMode == 1) //仅开启上面的相机
             {
-                if (receiveData == "2") //上ok下ng
+                if (receiveData == "2" || receiveData == "1") //上ok下ng
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
@@ -319,7 +319,7 @@ namespace inspectWinformTB
             }
             else if (work1.camMode == 2)
             {
-                if (receiveData == "3") //上ng下ok
+                if (receiveData == "3" || receiveData == "1") //上ng下ok
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
