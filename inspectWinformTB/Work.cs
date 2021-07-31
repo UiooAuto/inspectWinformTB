@@ -133,7 +133,20 @@ namespace inspectWinformTB
 
         private string readInspect(int camId)
         {
-            string str = "c1;";
+            //根据界面的复选框选择触发模式
+            string str = "";
+            if (camMode == 1)//仅触发上面相机
+            {
+                str = "c1;";
+            }
+            else if (camMode == 2)//仅触发下面相机
+            {
+                str = "c2;";
+            }
+            else if (camMode == 3)//全部触发
+            {
+                str = "c3;";
+            }
             InspectUtilsTB.sendCmdToTarget(localSocket, str);
             var receiveData = InspectUtilsTB.receiveDataFromTarget(localSocket, resBytes);
             return receiveData;

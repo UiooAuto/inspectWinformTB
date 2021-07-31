@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/saveData.JSON" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +31,8 @@
       <option value="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/AllConnectData.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
@@ -98,7 +92,10 @@
       <workItem from="1622825225075" duration="799000" />
       <workItem from="1622987639462" duration="2484000" />
       <workItem from="1622990245338" duration="12000" />
-      <workItem from="1627388646286" duration="1537000" />
+      <workItem from="1627388646286" duration="1772000" />
+      <workItem from="1627390970561" duration="134000" />
+      <workItem from="1627632374664" duration="10000" />
+      <workItem from="1627714757040" duration="2481000" />
     </task>
     <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
       <created>1621315645571</created>
@@ -142,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622990130554</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="选择单相机时，接收到Inspect发来的“1”也会认为OK">
+      <created>1627390382590</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1627390382590</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +178,7 @@
     <MESSAGE value="---" />
     <MESSAGE value="功能同步更新" />
     <MESSAGE value="更新：&#10;手动打开Inspect&#10;程序图标&#10;程序最小化功能&#10;程序启动自动最小化&#10;检测相机结果信息简化" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新：&#10;手动打开Inspect&#10;程序图标&#10;程序最小化功能&#10;程序启动自动最小化&#10;检测相机结果信息简化" />
+    <MESSAGE value="选择单相机时，接收到Inspect发来的“1”也会认为OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="选择单相机时，接收到Inspect发来的“1”也会认为OK" />
   </component>
 </project>
