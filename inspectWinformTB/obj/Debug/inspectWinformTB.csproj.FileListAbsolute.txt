@@ -11,3 +11,16 @@ D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\
 D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.exe
 D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.pdb
 D:\XXYwork\视觉项目\rider程序\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.AssemblyReference.cache
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.AssemblyReference.cache
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.Form1.resources
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.Properties.Resources.resources
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.GenerateResource.cache
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CoreCompileInputs.cache
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.exe
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.pdb
+D:\RiderWork\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.exe.config
+D:\RiderWork\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.exe
+D:\RiderWork\inspectWinformTB\inspectWinformTB\bin\Debug\inspectWinformTB.pdb
+D:\RiderWork\inspectWinformTB\inspectWinformTB\bin\Debug\Newtonsoft.Json.dll
+D:\RiderWork\inspectWinformTB\inspectWinformTB\bin\Debug\Newtonsoft.Json.xml
+D:\RiderWork\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CopyComplete

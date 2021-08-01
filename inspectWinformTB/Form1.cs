@@ -46,6 +46,8 @@ namespace inspectWinformTB
 
         bool connectStatus = false;
 
+        private Thread thread1;
+
         public Form1()
         {
             InitializeComponent();
@@ -171,6 +173,8 @@ namespace inspectWinformTB
                 closeAllSocket();
                 connectAll.Text = "连接";
                 connectAll.BackColor = Color.Silver;
+                trigger1State.BackColor = Color.Silver;
+                trigger2State.BackColor = Color.Silver;
             }
             else
             {
@@ -198,6 +202,8 @@ namespace inspectWinformTB
                 work1.camCmdAds = cam1CmdAds;
                 work1.camResAds = cam1ResAds;
                 work1.san = true;
+                work1.triggerState1 = trigger1State;
+                work1.triggerState2 = trigger2State;
                 if (cam1En.Checked && !cam2En.Checked)
                 {
                     work1.camMode = 1;
@@ -211,7 +217,7 @@ namespace inspectWinformTB
                     work1.camMode = 3;
                 }
 
-                Thread thread1 = new Thread(new ThreadStart(work1.go));
+                thread1 = new Thread(new ThreadStart(work1.go));
                 thread1.Name = "cam1";
                 thread1.Start();
             }
@@ -381,6 +387,10 @@ namespace inspectWinformTB
                 InspectUtilsTB.shutDownConnect(plcSocket1);
                 plcSocket1.Close();
                 plcSocket1 = null;
+                if (thread1!= null)
+                {
+                    thread1.Abort();
+                }
             }
 
             work1.camMode = 0;
@@ -592,4 +602,19 @@ namespace inspectWinformTB
 
         #endregion
     }
+    #region 圆形标签类
+    public class CircleLabel : Label//继承标签类    重新生成解决方案就能看见我啦
+    {
+        protected override void OnPaint(PaintEventArgs e)//重新设置控件的形状   protected 保护  override重新
+        {
+            base.OnPaint(e);//递归  每次重新都发生此方法,保证其形状为自定义形状
+            System.Drawing.Drawing2D.GraphicsPath path =new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddEllipse(2, 2,this.Width - 6,this.Height - 6);
+            //Graphics g = e.Graphics;
+            //g.DrawEllipse(new Pen(Color.Red, 2), 2, 2, Width - 6, Height - 6);
+            Region =new Region(path);
+        }
+    }
+ 
+    #endregion
 }
