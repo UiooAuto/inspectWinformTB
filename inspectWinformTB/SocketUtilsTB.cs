@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace inspectWinformTB
+namespace InspectWinformTB
 {
-    class InspectUtilsTB
+    class SocketUtilsTB
     {
         /// <summary>
         /// 用于连接INspectExpress

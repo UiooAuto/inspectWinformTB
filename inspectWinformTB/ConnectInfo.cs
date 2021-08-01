@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace inspectWinformTB
+namespace InspectWinformTB
 {
     [Serializable]
     public class ConnectInfo

@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
-namespace inspectWinformTB
+namespace InspectWinformTB
 {
     class Work
     {
@@ -28,10 +29,19 @@ namespace inspectWinformTB
 
         private Thread currentThread;
 
+        private bool inspectOK;
+
+        private Timer timer;
+        private int plcCmd;
+
         public void go()
         {
             currentThread = Thread.CurrentThread;
 
+            timer = new Timer();
+            timer.Interval = 2000;
+            timer.Enabled = true;
+            timer.Tick += timer_Tick;
             while (san)
             {
                 for (int i = 0; i < resBytes.Length; i++)
@@ -52,57 +62,15 @@ namespace inspectWinformTB
                     int plcCmd = getPlcCmd(plcSocket, camCmdAds);
                     if (plcCmd != 0)
                     {
+                        inspectOK = true;
+                        timer.Start();
                         result = readInspect(plcCmd);
                     }
-
-                    if (camMode == 1) //仅开启上面的相机
+                    if (inspectOK)
                     {
-                        if (result == "2" || result == "1") //上ok下ng
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                        else
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0003\r\n"); //3代表上面NG
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                    }
-                    else if (camMode == 2) //仅开启下面的相机
-                    {
-                        if (result == "3" || result == "1") //上ng下ok
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                        else
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0002\r\n"); //2代表下面NG
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                    }
-                    else if (camMode == 3)
-                    {
-                        if (result == "1")
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                        else if (result == "2")
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0002\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                        else if (result == "3")
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0003\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
-                        else if (result == "4")
-                        {
-                            setPlcCmd(plcSocket, camResAds, " 0004\r\n");
-                            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                        }
+                        inspectOK = false;
+                        timer.Stop();
+                        resSender();
                     }
 
                     result = "";
@@ -111,17 +79,70 @@ namespace inspectWinformTB
             }
         }
 
+        private void resSender()
+        {
+            if (camMode == 1) //仅开启上面的相机
+            {
+                if (result == "2" || result == "1") //上ok下ng
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+                else
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0003\r\n"); //3代表上面NG
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+            }
+            else if (camMode == 2) //仅开启下面的相机
+            {
+                if (result == "3" || result == "1") //上ng下ok
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+                else
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0002\r\n"); //2代表下面NG
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+            }
+            else if (camMode == 3)
+            {
+                if (result == "1")
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+                else if (result == "2")
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+                else if (result == "3")
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0003\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+                else if (result == "4")
+                {
+                    setPlcCmd(plcSocket, camResAds, " 0004\r\n");
+                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                }
+            }
+        }
+
         private string setPlcCmd(Socket socket, string plcAddress, string setResult)
         {
-            string rtn = InspectUtilsTB.sendCmdToTarget(socket, writeCmd + plcAddress + setResult);
+            string rtn = SocketUtilsTB.sendCmdToTarget(socket, writeCmd + plcAddress + setResult);
             return rtn;
         }
 
         private int getPlcCmd(Socket socket, string plcAddress)
         {
             int enCamId = 0;
-            InspectUtilsTB.sendCmdToTarget(socket, readCmd + plcAddress + "\r\n");
-            var cmd = InspectUtilsTB.receiveDataFromTarget(socket, new byte[1024]);
+            SocketUtilsTB.sendCmdToTarget(socket, readCmd + plcAddress + "\r\n");
+            var cmd = SocketUtilsTB.receiveDataFromTarget(socket, new byte[1024]);
             var indexOf = cmd.IndexOf('\r');
             if (indexOf != -1)
             {
@@ -175,9 +196,26 @@ namespace inspectWinformTB
                 str = "c3;";
             }
 
-            InspectUtilsTB.sendCmdToTarget(localSocket, str);
-            var receiveData = InspectUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+            SocketUtilsTB.sendCmdToTarget(localSocket, str);
+            var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
             return receiveData;
         }
+
+        #region 收到触发信号后超时
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (inspectOK)
+            {
+                SocketUtilsTB.sendCmdToTarget(localSocket, "c" + camMode + ";");
+                var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                resSender();
+            }
+
+            inspectOK = false;
+            timer.Stop();
+        }
+
+        #endregion
     }
 }

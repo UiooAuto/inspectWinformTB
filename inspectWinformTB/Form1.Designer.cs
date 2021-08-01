@@ -1,4 +1,4 @@
-﻿namespace inspectWinformTB
+﻿namespace InspectWinformTB
 {
     partial class Form1
     {
@@ -64,8 +64,8 @@
 			this.testMsg = new System.Windows.Forms.Label();
 			this.minForm = new System.Windows.Forms.Button();
 			this.handStartInspect = new System.Windows.Forms.Button();
-			this.trigger1State = new inspectWinformTB.CircleLabel();
-			this.trigger2State = new inspectWinformTB.CircleLabel();
+			this.trigger1State = new CircleLabel();
+			this.trigger2State = new CircleLabel();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
@@ -588,8 +588,8 @@
         private System.Windows.Forms.Label label3;
 
         private System.Windows.Forms.Label label1;
-		private inspectWinformTB.CircleLabel trigger1State;
-		private inspectWinformTB.CircleLabel trigger2State;
+		private CircleLabel trigger1State;
+		private CircleLabel trigger2State;
 
 		#endregion
 

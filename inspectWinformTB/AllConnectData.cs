@@ -1,4 +1,4 @@
-﻿namespace inspectWinformTB
+﻿namespace InspectWinformTB
 {
     public class AllConnectData
     {

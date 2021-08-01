@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using inspectWinform;
 
-namespace inspectWinformTB
+namespace InspectWinformTB
 {
     static class Program
     {

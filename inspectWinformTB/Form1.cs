@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using inspectWinform;
 using Newtonsoft.Json;
 
-namespace inspectWinformTB
+namespace InspectWinformTB
 {
     public partial class Form1 : Form
     {
@@ -167,8 +167,7 @@ namespace inspectWinformTB
             }
 
             //当在有链接的时候点击，需要关闭所有连接
-            if ((inspectSocket != null && inspectSocket.Connected)
-                || plcSocket1 != null && plcSocket1.Connected)
+            if ("关闭连接".Equals(connectAll.Text))
             {
                 closeAllSocket();
                 connectAll.Text = "连接";
@@ -244,7 +243,7 @@ namespace inspectWinformTB
             {
                 plcConnectArr[0].ip = plcIp1.Text;
                 plcConnectArr[0].port = int.Parse(plcPort1.Text);
-                plcSocket1 = InspectUtilsTB.connectToTarget(plcConnectArr[0].ip, plcConnectArr[0].port);
+                plcSocket1 = SocketUtilsTB.connectToTarget(plcConnectArr[0].ip, plcConnectArr[0].port);
                 if (plcSocket1 != null)
                 {
                     flag = true;
@@ -258,7 +257,7 @@ namespace inspectWinformTB
                 {
                     inspectConnectInfo.ip = inspectIp.Text;
                     inspectConnectInfo.port = int.Parse(inspectPort.Text);
-                    inspectSocket = InspectUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
+                    inspectSocket = SocketUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
                 }
                 connectAll.Text = "关闭连接";
                 connectAll.BackColor = Color.LimeGreen;
@@ -300,8 +299,8 @@ namespace inspectWinformTB
             string str = "c1;";
             testMsg.Text = "无";
             testMsg.BackColor = Color.Silver;
-            InspectUtilsTB.sendCmdToTarget(inspectSocket, str);
-            var receiveData = InspectUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+            SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
+            var receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             if (work1.camMode == 1) //仅开启上面的相机
             {
                 if (receiveData == "2" || receiveData == "1") //上ok下ng
@@ -377,14 +376,14 @@ namespace inspectWinformTB
         {
             if (inspectSocket != null)
             {
-                InspectUtilsTB.shutDownConnect(inspectSocket);
+                SocketUtilsTB.shutDownConnect(inspectSocket);
                 inspectSocket.Close();
                 inspectSocket = null;
             }
 
             if (plcSocket1 != null)
             {
-                InspectUtilsTB.shutDownConnect(plcSocket1);
+                SocketUtilsTB.shutDownConnect(plcSocket1);
                 plcSocket1.Close();
                 plcSocket1 = null;
                 if (thread1!= null)
@@ -500,7 +499,7 @@ namespace inspectWinformTB
 
         private string setPlcCmd(Socket socket, string plcAddress, string setResult)
         {
-            string rtn = InspectUtilsTB.sendCmdToTarget(socket, "01WWR" + plcAddress + setResult + "\r\n");
+            string rtn = SocketUtilsTB.sendCmdToTarget(socket, "01WWR" + plcAddress + setResult + "\r\n");
             //MessageBox.Show("01WWR" + plcAddress + setResult + "\r\n");
             return rtn;
         }
