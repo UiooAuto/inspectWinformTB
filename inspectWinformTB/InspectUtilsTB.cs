@@ -39,6 +39,7 @@ namespace inspectWinformTB
                     else
                     {
                         MessageBox.Show("连接超时");
+                        return null;
                     }
                 }
                 catch (Exception e)

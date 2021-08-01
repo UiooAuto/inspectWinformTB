@@ -233,17 +233,6 @@ namespace inspectWinformTB
             }
             //用于标识是否有连接建立成功
             bool flag = false;
-            //只有在有连接参数的时候才连接
-            if (inspectSocket == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
-            {
-                inspectConnectInfo.ip = inspectIp.Text;
-                inspectConnectInfo.port = int.Parse(inspectPort.Text);
-                inspectSocket = InspectUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
-                if (inspectSocket != null)
-                {
-                    flag = true;
-                }
-            }
 
             if (plcSocket1 == null & !isEmpty(plcIp1.Text) & !isEmpty(plcPort1.Text))
             {
@@ -258,6 +247,13 @@ namespace inspectWinformTB
 
             if (flag)
             {
+                //只有在有连接参数、有PLC连接成功时才连接Inspect
+                if (inspectSocket == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
+                {
+                    inspectConnectInfo.ip = inspectIp.Text;
+                    inspectConnectInfo.port = int.Parse(inspectPort.Text);
+                    inspectSocket = InspectUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
+                }
                 connectAll.Text = "关闭连接";
                 connectAll.BackColor = Color.LimeGreen;
                 connectStatus = true;
