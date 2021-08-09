@@ -296,11 +296,25 @@ namespace InspectWinformTB
 
         private void cmdCam1_Click(object sender, EventArgs e)
         {
-            string str = "c1;";
+            
+            string str = "";
+            if (work1.camMode == 1) //仅触发上面相机
+            {
+                str = "c1;";
+            }
+            else if (work1.camMode == 2) //仅触发下面相机
+            {
+                str = "c2;";
+            }
+            else if (work1.camMode == 3) //全部触发
+            {
+                str = "c3;";
+            }
             testMsg.Text = "无";
             testMsg.BackColor = Color.Silver;
             SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
             var receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+            
             if (work1.camMode == 1) //仅开启上面的相机
             {
                 if (receiveData == "2" || receiveData == "1") //上ok下ng
@@ -312,13 +326,13 @@ namespace InspectWinformTB
                 }
                 else
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //给PLC发送3代表上面NG
+                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //3代表上面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "上面胶条 NG";
                     testMsg.BackColor = Color.Red;
                 }
             }
-            else if (work1.camMode == 2)
+            else if (work1.camMode == 2) //仅开启下面的相机
             {
                 if (receiveData == "3" || receiveData == "1") //上ng下ok
                 {
@@ -335,34 +349,34 @@ namespace InspectWinformTB
                     testMsg.BackColor = Color.Red;
                 }
             }
-            else if (work1.camMode == 3)//上下面相机都正常工作
+            else if (work1.camMode == 3)
             {
-                if (receiveData == "1") //上下都ok
+                if (receiveData == "1")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "全部OK";
+                    testMsg.Text = "上下胶条全部OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
-                else if (receiveData == "2") //上OK下NG
+                else if (receiveData == "2")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "下面胶条NG";
+                    testMsg.Text = "上面胶条OK,下胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
-                else if (receiveData == "3") //上NG下OK
+                else if (receiveData == "3")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上面胶条NG";
+                    testMsg.Text = "上面胶条NG,下胶条OK";
                     testMsg.BackColor = Color.Red;
                 }
-                else if (receiveData == "4") //上下都NG
+                else if (receiveData == "4")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "全部NG";
+                    testMsg.Text = "上下胶条全部NG";
                     testMsg.BackColor = Color.Red;
                 }
             }
