@@ -203,6 +203,7 @@ namespace InspectWinformTB
                 work1.san = true;
                 work1.triggerState1 = trigger1State;
                 work1.triggerState2 = trigger2State;
+                work1.triggerState3 = testMsg;
                 if (cam1En.Checked && !cam2En.Checked)
                 {
                     work1.camMode = 1;
@@ -298,22 +299,46 @@ namespace InspectWinformTB
         {
             
             string str = "";
+            string receiveData = "";
             if (work1.camMode == 1) //仅触发上面相机
             {
                 str = "c1;";
+                testMsg.Text = "无";
+                testMsg.BackColor = Color.Silver;
+                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
+                receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             }
             else if (work1.camMode == 2) //仅触发下面相机
             {
                 str = "c2;";
+                testMsg.Text = "无";
+                testMsg.BackColor = Color.Silver;
+                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
+                receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             }
             else if (work1.camMode == 3) //全部触发
             {
-                str = "c3;";
+                str = "c1;";
+                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
+                var receiveData1 = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+                Array.Clear(resByteArr,0,resByteArr.Length);
+                str = "c2;";
+                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
+                var receiveData2 = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+                if ("1".Equals(receiveData1) && "1".Equals(receiveData2))
+                {
+                    receiveData = "1";
+                }else if ("1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                {
+                    receiveData = "2";
+                }else if (!"1".Equals(receiveData1) && "1".Equals(receiveData2))
+                {
+                    receiveData = "3";
+                }else if (!"1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                {
+                    receiveData = "4";
+                }
             }
-            testMsg.Text = "无";
-            testMsg.BackColor = Color.Silver;
-            SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
-            var receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             
             if (work1.camMode == 1) //仅开启上面的相机
             {
@@ -321,14 +346,14 @@ namespace InspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上面胶条 OK";
+                    testMsg.Text = "上面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //3代表上面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上面胶条 NG";
+                    testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
             }
@@ -338,14 +363,14 @@ namespace InspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "下面胶条 OK";
+                    testMsg.Text = "下面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n"); //2代表下面NG
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "下面胶条 NG";
+                    testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
             }
@@ -355,28 +380,28 @@ namespace InspectWinformTB
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上下胶条全部OK";
+                    testMsg.Text = "全部OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else if (receiveData == "2")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上面胶条OK,下胶条NG";
+                    testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "3")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上面胶条NG,下胶条OK";
+                    testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "4")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
-                    testMsg.Text = "上下胶条全部NG";
+                    testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
                 }
             }

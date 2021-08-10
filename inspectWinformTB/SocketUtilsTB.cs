@@ -26,8 +26,8 @@ namespace InspectWinformTB
             {
                 ipAddress = IPAddress.Parse(serverIp);
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.SendTimeout = 1000;
-                socket.ReceiveTimeout = 1000;
+                socket.SendTimeout = 2000;
+                socket.ReceiveTimeout = 2000;
                 try
                 {
                     Ping ping = new Ping();
@@ -136,7 +136,7 @@ namespace InspectWinformTB
         {
             Socket socket;
             string recStr = "";
-            if (serverIp != null && serverPort != 0 & recBytes != null)
+            if (serverIp != null && serverPort != 0 && recBytes != null)
             {
                 socket = connectToTarget(serverIp, serverPort);
                 if (socket == null)
@@ -164,7 +164,7 @@ namespace InspectWinformTB
         public static string receiveDataFromTarget(Socket socket, byte[] recBytes)
         {
             string recStr = "";
-            if (socket != null & recBytes != null)
+            if (socket != null && recBytes != null)
             {
                 try
                 {

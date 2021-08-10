@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.vs/inspectWinformTB/v16/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/SocketUtilsTB.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/SocketUtilsTB.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/DesignTimeResolveAssemblyReferences.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/DesignTimeResolveAssemblyReferences.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +34,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/inspectWinformTB/Work.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/inspectWinformTB/Form1.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/inspectWinformTB/AutoConnectForm.Designer.cs" />
@@ -32,8 +47,8 @@
       <option value="$PROJECT_DIR$/inspectWinformTB/InspectUtilsTB.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/SocketUtilsTB.cs" />
-      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
       <option value="$PROJECT_DIR$/inspectWinformTB/Form1.cs" />
+      <option value="$PROJECT_DIR$/inspectWinformTB/Work.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sgjwLZntu1lcZAd012f7U941T4" />
@@ -109,7 +124,11 @@
       <workItem from="1627809264140" duration="2366000" />
       <workItem from="1627819134237" duration="26000" />
       <workItem from="1628410726185" duration="1811000" />
-      <workItem from="1628483384909" duration="729000" />
+      <workItem from="1628483384909" duration="1418000" />
+      <workItem from="1628496781120" duration="5466000" />
+      <workItem from="1628555602208" duration="550000" />
+      <workItem from="1628556271381" duration="6250000" />
+      <workItem from="1628565161615" duration="2801000" />
     </task>
     <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
       <created>1621315645571</created>
@@ -181,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627809747747</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="相机触发测试按钮功能同步更新">
+      <created>1628484383433</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1628484383433</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +243,7 @@
     <MESSAGE value="在socket连接之前先ping一下指定地址，ping通才连接." />
     <MESSAGE value="更新了Inspect在Ping不通以后的返回值；&#10;更新了PLC连接和Inspect的连接顺序，并且在PLC连接成功后Inspect才会连接" />
     <MESSAGE value="更新了触发状态显示" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新了触发状态显示" />
+    <MESSAGE value="相机触发测试按钮功能同步更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="相机触发测试按钮功能同步更新" />
   </component>
 </project>
