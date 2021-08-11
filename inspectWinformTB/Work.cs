@@ -38,9 +38,9 @@ namespace InspectWinformTB
         public void go()
         {
             currentThread = Thread.CurrentThread;
-
+            
             timer = new Timer();
-            timer.Interval = 500;
+            timer.Interval = 1000;
             //timer.Enabled = true;
             timer.AutoReset = false;
             timer.Elapsed += timer_Tick;
@@ -54,26 +54,19 @@ namespace InspectWinformTB
                 lock (this)
                 {
                     result = "";
-                    /*
-                     *var plcCmdStr = InspectUtilsTB.receiveDataFromTarget(plcSocket,resBytes);
-                     *var plcCmd = int.Parse(plcCmdStr);
-                     */
-                    /*
-                     * 读取PLC命令
-                     */
                     int plcCmd = getPlcCmd(plcSocket, camCmdAds);
                     if (plcCmd != 0)
                     {
                         triggerState3.BackColor = Color.Silver;
                         triggerState3.Text = "无";
-                        inspectOK = true;
-                        timer.Start();
                         result = readInspect(plcCmd);
                     }
-                    if (inspectOK)
+
+                    if (!string.IsNullOrEmpty(result) && inspectOK)
                     {
                         inspectOK = false;
                         timer.Stop();
+                        timer.Enabled = false;
                         resSender();
                     }
 
@@ -85,71 +78,68 @@ namespace InspectWinformTB
 
         private void resSender()
         {
-            if (camMode == 1) //仅开启上面的相机
+            if (!string.IsNullOrEmpty(result) && !"Receive_Fail".Equals(result))
             {
-                if (result == "2" || result == "1") //上ok下ng
+                if (camMode == 1) //仅开启上面的相机
                 {
-                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "上面胶条OK";
-                    triggerState3.BackColor = Color.LimeGreen;
+                    if (result == "2" || result == "1") //上ok下ng
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                        triggerState3.Text = "上面胶条OK";
+                        triggerState3.BackColor = Color.LimeGreen;
+                    }
+                    else
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0003\r\n"); //3代表上面NG
+                        triggerState3.Text = "上面胶条NG";
+                        triggerState3.BackColor = Color.Red;
+                    }
                 }
-                else
+                else if (camMode == 2) //仅开启下面的相机
                 {
-                    setPlcCmd(plcSocket, camResAds, " 0003\r\n"); //3代表上面NG
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "上面胶条NG";
-                    triggerState3.BackColor = Color.Red;
+                    if (result == "3" || result == "1") //上ng下ok
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                        triggerState3.Text = "下面胶条OK";
+                        triggerState3.BackColor = Color.LimeGreen;
+                    }
+                    else
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0002\r\n"); //2代表下面NG
+                        triggerState3.Text = "下面胶条NG";
+                        triggerState3.BackColor = Color.Red;
+                    }
+                }
+                else if (camMode == 3)
+                {
+                    if (result == "1")
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0001\r\n");
+                        triggerState3.Text = "全部OK";
+                        triggerState3.BackColor = Color.LimeGreen;
+                    }
+                    else if (result == "2")
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0002\r\n");
+                        triggerState3.Text = "下面胶条NG";
+                        triggerState3.BackColor = Color.Red;
+                    }
+                    else if (result == "3")
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0003\r\n");
+                        triggerState3.Text = "上面胶条NG";
+                        triggerState3.BackColor = Color.Red;
+                    }
+                    else if (result == "4")
+                    {
+                        setPlcCmd(plcSocket, camResAds, " 0004\r\n");
+                        triggerState3.Text = "全部NG";
+                        triggerState3.BackColor = Color.Red;
+                    }
                 }
             }
-            else if (camMode == 2) //仅开启下面的相机
-            {
-                if (result == "3" || result == "1") //上ng下ok
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "下面胶条OK";
-                    triggerState3.BackColor = Color.LimeGreen;
-                }
-                else
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0002\r\n"); //2代表下面NG
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "下面胶条NG";
-                    triggerState3.BackColor = Color.Red;
-                }
-            }
-            else if (camMode == 3)
-            {
-                if (result == "1")
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0001\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "全部OK";
-                    triggerState3.BackColor = Color.LimeGreen;
-                }
-                else if (result == "2")
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0002\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "下面胶条NG";
-                    triggerState3.BackColor = Color.Red;
-                }
-                else if (result == "3")
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0003\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "上面胶条NG";
-                    triggerState3.BackColor = Color.Red;
-                }
-                else if (result == "4")
-                {
-                    setPlcCmd(plcSocket, camResAds, " 0004\r\n");
-                    setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
-                    triggerState3.Text = "全部NG";
-                    triggerState3.BackColor = Color.Red;
-                }
-            }
+
+            setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
         }
 
         private string setPlcCmd(Socket socket, string plcAddress, string setResult)
@@ -173,20 +163,29 @@ namespace InspectWinformTB
             if ("11OK0001".Equals(cmd) && camMode == 1)
             {
                 triggerState1.BackColor = Color.LimeGreen;
+                inspectOK = true; //开启触发超时定时器
+                timer.Start();
             }
             else if ("11OK0001".Equals(cmd) && camMode == 2)
             {
                 triggerState2.BackColor = Color.LimeGreen;
+                inspectOK = true; //开启触发超时定时器
+                timer.Start();
             }
             else if ("11OK0001".Equals(cmd) && camMode == 3)
             {
                 triggerState1.BackColor = Color.LimeGreen;
                 triggerState2.BackColor = Color.LimeGreen;
+                inspectOK = true; //开启触发超时定时器
+                timer.Start();
             }
             else if ("11OK0000".Equals(cmd))
             {
                 triggerState1.BackColor = Color.Yellow;
                 triggerState2.BackColor = Color.Yellow;
+                inspectOK = false; //关闭触发超时定时器
+                timer.Stop();
+                timer.Enabled = false;
             }
 
             if (cmd == "11OK0001" && cmd != lastCmd)
@@ -206,53 +205,127 @@ namespace InspectWinformTB
             if (camMode == 1) //仅触发上面相机
             {
                 str = "c1;";
+                SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                if (!string.IsNullOrEmpty(receiveData) && !"Receive_Fail".Equals(receiveData))
+                {
+                    return receiveData;
+                }
+                else
+                {
+                    return "";
+                }
             }
             else if (camMode == 2) //仅触发下面相机
             {
                 str = "c2;";
+                SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                if (!string.IsNullOrEmpty(receiveData) && !"Receive_Fail".Equals(receiveData))
+                {
+                    return receiveData;
+                }
+                else
+                {
+                    return "";
+                }
             }
             else if (camMode == 3) //全部触发
             {
                 str = "c1;";
                 SocketUtilsTB.sendCmdToTarget(localSocket, str);
                 var receiveData1 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
-                Array.Clear(resBytes,0,resBytes.Length);
+                Array.Clear(resBytes, 0, resBytes.Length);
                 str = "c2;";
                 SocketUtilsTB.sendCmdToTarget(localSocket, str);
                 var receiveData2 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
-                if ("1".Equals(receiveData1) && "1".Equals(receiveData2))
+                if (!string.IsNullOrEmpty(receiveData1) && !string.IsNullOrEmpty(receiveData2) &&
+                    !"Receive_Fail".Equals(receiveData1) && !"Receive_Fail".Equals(receiveData2))
                 {
-                    return "1";
-                }else if ("1".Equals(receiveData1) && !"1".Equals(receiveData2))
-                {
-                    return "2";
-                }else if (!"1".Equals(receiveData1) && "1".Equals(receiveData2))
-                {
-                    return "3";
-                }else if (!"1".Equals(receiveData1) && !"1".Equals(receiveData2))
-                {
-                    return "4";
+                    if ("1".Equals(receiveData1) && "1".Equals(receiveData2))
+                    {
+                        return "1";
+                    }
+
+                    if ("1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                    {
+                        return "2";
+                    }
+
+                    if (!"1".Equals(receiveData1) && "1".Equals(receiveData2))
+                    {
+                        return "3";
+                    }
+
+                    if (!"1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                    {
+                        return "4";
+                    }
                 }
             }
 
-            SocketUtilsTB.sendCmdToTarget(localSocket, str);
-            var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
-            return receiveData;
+            return "";
         }
 
         #region 收到触发信号后超时
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            //MessageBox.Show("TimerWork");
-            
+
             if (inspectOK)
             {
-                //localSocket = SocketUtilsTB.connectToTarget("127.0.0.1", 5024);
-                SocketUtilsTB.sendCmdToTarget(localSocket, "c" + camMode + ";");
-                var receiveData = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
-                setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                triggerState3.BackColor = Color.Blue;
+                //根据界面的复选框选择触发模式
+                string str = "";
+                if (camMode == 1) //仅触发上面相机
+                {
+                    str = "c1;";
+                    SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                    result = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                }
+                else if (camMode == 2) //仅触发下面相机
+                {
+                    str = "c2;";
+                    SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                    result = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                }
+                else if (camMode == 3) //全部触发
+                {
+                    str = "c1;";
+                    SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                    var receiveData1 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                    Array.Clear(resBytes, 0, resBytes.Length);
+                    str = "c2;";
+                    SocketUtilsTB.sendCmdToTarget(localSocket, str);
+                    var receiveData2 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                    if (!string.IsNullOrEmpty(receiveData1) && !string.IsNullOrEmpty(receiveData2) &&
+                        !"Receive_Fail".Equals(receiveData1) && !"Receive_Fail".Equals(receiveData2))
+                    {
+                        if ("1".Equals(receiveData1) && "1".Equals(receiveData2))
+                        {
+                            result = "1";
+                        }
+
+                        if ("1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                        {
+                            result = "2";
+                        }
+
+                        if (!"1".Equals(receiveData1) && "1".Equals(receiveData2))
+                        {
+                            result = "3";
+                        }
+
+                        if (!"1".Equals(receiveData1) && !"1".Equals(receiveData2))
+                        {
+                            result = "4";
+                        }
+                    }
+                }
+
                 resSender();
+                setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
+                result = "";
             }
 
             inspectOK = false;

@@ -26,8 +26,8 @@ namespace InspectWinformTB
             {
                 ipAddress = IPAddress.Parse(serverIp);
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.SendTimeout = 2000;
-                socket.ReceiveTimeout = 2000;
+                socket.SendTimeout = 500;
+                socket.ReceiveTimeout = 500;
                 try
                 {
                     Ping ping = new Ping();
