@@ -16,5 +16,7 @@
         public bool cam2En;
         
         public string delayStartInspect;
+        
+        public string overTimeSet;
     }
 }

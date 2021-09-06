@@ -45,6 +45,7 @@ namespace InspectWinformTB
         string cam1ResAds;
 
         bool connectStatus = false;
+        public int overTimeSet;
 
         private Thread thread1;
 
@@ -85,6 +86,16 @@ namespace InspectWinformTB
 
             cam1En.Checked = allConnectData.cam1En;
             cam2En.Checked = allConnectData.cam2En;
+            
+            if (isEmpty(allConnectData.overTimeSet))
+            {
+                overTime.Text = "2";
+            }
+            else
+            {
+                overTime.Text = allConnectData.overTimeSet;
+            }
+
 
             //创建窗口对象
             AutoConnectForm autoConnectForm = new AutoConnectForm();
@@ -100,6 +111,17 @@ namespace InspectWinformTB
 
             //运行窗口，阻塞主体程序运行
             autoConnectForm.ShowDialog();
+            
+            
+            if (isEmpty(allConnectData.delayStartInspect))
+            {
+                autoStartInspectTime.Text = "5";
+            }
+            else
+            {
+                autoStartInspectTime.Text = allConnectData.delayStartInspect;
+            }
+
 
             if (autoConnectForm.autoConn)
             {
@@ -193,6 +215,7 @@ namespace InspectWinformTB
         /// </summary>
         public void startWork()
         {
+            overTimeSet = (int)(double.Parse(overTime.Text) * 1000 / 1);
             //仅当对应plc有连接的时候，才开启线程
             if (plcSocket1 != null)
             {
@@ -216,6 +239,7 @@ namespace InspectWinformTB
                 {
                     work1.camMode = 3;
                 }
+                work1.overTime = overTimeSet;
 
                 thread1 = new Thread(new ThreadStart(work1.go));
                 thread1.Name = "cam1";
@@ -281,7 +305,7 @@ namespace InspectWinformTB
         /// <returns></returns>
         private bool isEmpty(string str)
         {
-            if (str.Length != 0 & str != null)
+            if ( str != null && str.Length != 0)
             {
                 return false;
             }
@@ -345,6 +369,7 @@ namespace InspectWinformTB
                 if (receiveData == "2" || receiveData == "1") //上ok下ng
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "上面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -352,6 +377,7 @@ namespace InspectWinformTB
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //3代表上面NG
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -362,6 +388,7 @@ namespace InspectWinformTB
                 if (receiveData == "3" || receiveData == "1") //上ng下ok
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "下面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -369,6 +396,7 @@ namespace InspectWinformTB
                 else
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n"); //2代表下面NG
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -379,6 +407,7 @@ namespace InspectWinformTB
                 if (receiveData == "1")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "全部OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -386,6 +415,7 @@ namespace InspectWinformTB
                 else if (receiveData == "2")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -393,6 +423,7 @@ namespace InspectWinformTB
                 else if (receiveData == "3")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -400,6 +431,7 @@ namespace InspectWinformTB
                 else if (receiveData == "4")
                 {
                     setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
+                    Thread.Sleep(30);
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
@@ -504,6 +536,7 @@ namespace InspectWinformTB
             allConnectData.cam2En = cam2En.Checked;
             
             allConnectData.delayStartInspect = autoStartInspectTime.Text;
+            allConnectData.overTimeSet = overTime.Text;
 
             File.WriteAllText(filePath, JsonConvert.SerializeObject(allConnectData));
         }
@@ -522,6 +555,8 @@ namespace InspectWinformTB
                     catch (Exception e)
                     {
                         MessageBox.Show("读取存档失败");
+                        allConnectData = new AllConnectData();
+                        saveDatas();
                     }
                 }
             }

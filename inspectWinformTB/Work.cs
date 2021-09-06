@@ -34,13 +34,14 @@ namespace InspectWinformTB
 
         private Timer timer;
         private int plcCmd;
+        public int overTime;
 
         public void go()
         {
             currentThread = Thread.CurrentThread;
             
             timer = new Timer();
-            timer.Interval = 1000;
+            timer.Interval = overTime;
             //timer.Enabled = true;
             timer.AutoReset = false;
             timer.Elapsed += timer_Tick;
@@ -54,7 +55,11 @@ namespace InspectWinformTB
                 lock (this)
                 {
                     result = "";
-                    int plcCmd = getPlcCmd(plcSocket, camCmdAds);
+                    if (!inspectOK)
+                    {
+                        plcCmd = getPlcCmd(plcSocket, camCmdAds);
+                    }
+
                     if (plcCmd != 0)
                     {
                         triggerState3.BackColor = Color.Silver;
@@ -71,6 +76,7 @@ namespace InspectWinformTB
                     }
 
                     result = "";
+                    plcCmd = 0;
                     Thread.Sleep(100);
                 }
             }
@@ -137,8 +143,8 @@ namespace InspectWinformTB
                         triggerState3.BackColor = Color.Red;
                     }
                 }
+                Thread.Sleep(30);//每次写结果后跟30ms延时。
             }
-
             setPlcCmd(plcSocket, camCmdAds, " 0000\r\n");
         }
 
@@ -235,10 +241,12 @@ namespace InspectWinformTB
                 str = "c1;";
                 SocketUtilsTB.sendCmdToTarget(localSocket, str);
                 var receiveData1 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                Thread.Sleep(30);//每次写结果后跟30ms延时。
                 Array.Clear(resBytes, 0, resBytes.Length);
                 str = "c2;";
                 SocketUtilsTB.sendCmdToTarget(localSocket, str);
                 var receiveData2 = SocketUtilsTB.receiveDataFromTarget(localSocket, resBytes);
+                Thread.Sleep(30);//每次写结果后跟30ms延时。
                 if (!string.IsNullOrEmpty(receiveData1) && !string.IsNullOrEmpty(receiveData2) &&
                     !"Receive_Fail".Equals(receiveData1) && !"Receive_Fail".Equals(receiveData2))
                 {
@@ -329,6 +337,8 @@ namespace InspectWinformTB
             }
 
             inspectOK = false;
+            result = "";
+            plcCmd = 0;
         }
 
         #endregion
