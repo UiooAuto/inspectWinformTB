@@ -34,6 +34,5 @@ D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\InspectWin
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.Properties.Resources.resources
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.GenerateResource.cache
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CoreCompileInputs.cache
-D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CopyComplete
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.exe
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.pdb

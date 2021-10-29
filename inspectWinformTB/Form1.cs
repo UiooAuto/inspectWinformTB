@@ -240,10 +240,15 @@ namespace InspectWinformTB
                     work1.camMode = 3;
                 }
                 work1.overTime = overTimeSet;
+                work1.connectStuts = 0;
 
                 thread1 = new Thread(new ThreadStart(work1.go));
                 thread1.Name = "cam1";
                 thread1.Start();
+                
+                Thread cheakthread = new Thread(new ThreadStart(AutoCheckConnect));
+                cheakthread.IsBackground = true;
+                cheakthread.Start();
             }
         }
 
@@ -284,6 +289,9 @@ namespace InspectWinformTB
                     inspectConnectInfo.port = int.Parse(inspectPort.Text);
                     inspectSocket = SocketUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
                 }
+                
+                testMsg.Text = "无";
+                testMsg.BackColor = Color.Silver;
                 connectAll.Text = "关闭连接";
                 connectAll.BackColor = Color.LimeGreen;
                 connectStatus = true;
@@ -435,6 +443,27 @@ namespace InspectWinformTB
                     setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
                     testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
+                }
+            }
+        }
+
+        #endregion
+        
+        #region 自动检测连接状态并更新界面
+
+        public void AutoCheckConnect()
+        {
+            while (true)
+            {
+                if (work1 != null)
+                {
+                    if (work1.connectStuts == 2)
+                    {
+                        startConnect();
+                        testMsg.Text = "连接中断";
+                        testMsg.BackColor = Color.Red;
+                        return;
+                    }
                 }
             }
         }

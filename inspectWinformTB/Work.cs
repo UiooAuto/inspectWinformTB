@@ -35,6 +35,8 @@ namespace InspectWinformTB
         private Timer timer;
         private int plcCmd;
         public int overTime;
+        
+        public int connectStuts = 0;
 
         public void go()
         {
@@ -58,6 +60,14 @@ namespace InspectWinformTB
                     if (!inspectOK)
                     {
                         plcCmd = getPlcCmd(plcSocket, camCmdAds);
+                        if (plcSocket.Connected)
+                        {
+                            connectStuts = 1;
+                        }
+                        else
+                        {
+                            connectStuts = 2;
+                        }
                     }
 
                     if (plcCmd != 0)
