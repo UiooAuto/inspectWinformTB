@@ -174,40 +174,57 @@ namespace InspectWinformTB
             {
                 cmd = cmd.Substring(0, indexOf);
             }
+            
+            if (!"11OK0000".Equals(cmd) && cmd != lastCmd)
+            {
+                if ("11OK0001".Equals(cmd))//发1全部触发
+                {
+                    camMode = 3;
+                    enCamId = 3;
+                }
+                else if ("11OK0002".Equals(cmd))//发2触发上
+                {
+                    camMode = 1;
+                    enCamId = 1;
+                }
+                else if("11OK0003".Equals(cmd))//发3触发下
+                {
+                    camMode = 2;
+                    enCamId = 2;
+                }
+            }
+            else
+            {
+                camMode = 0;
+            }
 
             //根据读取到的触发状态和界面选择的触发模式，更新触发指示
-            if ("11OK0001".Equals(cmd) && camMode == 1)
+            if (camMode == 1)
             {
                 triggerState1.BackColor = Color.LimeGreen;
                 inspectOK = true; //开启触发超时定时器
                 timer.Start();
             }
-            else if ("11OK0001".Equals(cmd) && camMode == 2)
+            else if (camMode == 2)
             {
                 triggerState2.BackColor = Color.LimeGreen;
                 inspectOK = true; //开启触发超时定时器
                 timer.Start();
             }
-            else if ("11OK0001".Equals(cmd) && camMode == 3)
+            else if (camMode == 3)
             {
                 triggerState1.BackColor = Color.LimeGreen;
                 triggerState2.BackColor = Color.LimeGreen;
                 inspectOK = true; //开启触发超时定时器
                 timer.Start();
             }
-            else if ("11OK0000".Equals(cmd))
+            else if (camMode == 0)
             {
                 triggerState1.BackColor = Color.Yellow;
                 triggerState2.BackColor = Color.Yellow;
                 inspectOK = false; //关闭触发超时定时器
                 timer.Stop();
                 timer.Enabled = false;
-            }
-
-            if (cmd == "11OK0001" && cmd != lastCmd)
-            {
-                Console.WriteLine(Thread.CurrentThread.Name + "触发");
-                enCamId = 1;
             }
 
             lastCmd = (string) cmd.Clone();

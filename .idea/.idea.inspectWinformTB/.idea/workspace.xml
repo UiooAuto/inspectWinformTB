@@ -6,7 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="5ca7e101-7453-44d3-9849-cfaf559673c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.inspectWinformTB/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/Form1.resx" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Form1.resx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inspectWinformTB/Work.cs" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/Work.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/bin/Debug/inspectWinformTB.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Form1.resources" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.Form1.resources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.csproj.GenerateResource.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/inspectWinformTB/obj/Debug/inspectWinformTB.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +132,11 @@
       <workItem from="1630891030453" duration="1061000" />
       <workItem from="1630892179649" duration="105000" />
       <workItem from="1630892615067" duration="68000" />
-      <workItem from="1635480521942" duration="311000" />
+      <workItem from="1635480521942" duration="1194000" />
+      <workItem from="1635502368449" duration="2701000" />
+      <workItem from="1636685081917" duration="19000" />
+      <workItem from="1636685166717" duration="598000" />
+      <workItem from="1638166856887" duration="5285000" />
     </task>
     <task id="LOCAL-00001" summary="可选上面或下面相机基本功能实现">
       <created>1621315645571</created>
@@ -223,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630891694364</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="更新了连接状态自动检测，检测到连接中断后自动更新界面">
+      <created>1635481125356</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1635481125356</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,6 +284,7 @@
     <MESSAGE value="更新了导光板工位异步触发逻辑：&#10;当两部相机同时触发时，实际上是先触发1号相机，获取到结果以后再触发2号相机；&#10;更新了收到触发命令2秒以后没反应强制触发的功能；&#10;更新了收到PLC指令以后会根据结果更新界面测试信息；" />
     <MESSAGE value="更新并测试通过了2秒超时强制触发的功能（其实是1秒）" />
     <MESSAGE value="完善超时再次触发机制&#10;新增相邻发送报文中间30ms的延时" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善超时再次触发机制&#10;新增相邻发送报文中间30ms的延时" />
+    <MESSAGE value="更新了连接状态自动检测，检测到连接中断后自动更新界面" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新了连接状态自动检测，检测到连接中断后自动更新界面" />
   </component>
 </project>

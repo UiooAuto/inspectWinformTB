@@ -227,7 +227,7 @@ namespace InspectWinformTB
                 work1.triggerState1 = trigger1State;
                 work1.triggerState2 = trigger2State;
                 work1.triggerState3 = testMsg;
-                if (cam1En.Checked && !cam2En.Checked)
+                /*if (cam1En.Checked && !cam2En.Checked)
                 {
                     work1.camMode = 1;
                 }
@@ -238,7 +238,7 @@ namespace InspectWinformTB
                 else if (cam1En.Checked && cam2En.Checked)
                 {
                     work1.camMode = 3;
-                }
+                }*/
                 work1.overTime = overTimeSet;
                 work1.connectStuts = 0;
 
@@ -332,7 +332,21 @@ namespace InspectWinformTB
             
             string str = "";
             string receiveData = "";
-            if (work1.camMode == 1) //仅触发上面相机
+            int camMode = 0;
+            if (cam1En.Checked && !cam2En.Checked)
+            {
+                camMode = 1;
+            }
+            else if (!cam1En.Checked && cam2En.Checked)
+            {
+                camMode = 2;
+            }
+            else if (cam1En.Checked && cam2En.Checked)
+            {
+                camMode = 3;
+            }
+            
+            if (camMode == 1) //仅触发上面相机
             {
                 str = "c1;";
                 testMsg.Text = "无";
@@ -340,7 +354,7 @@ namespace InspectWinformTB
                 SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
                 receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             }
-            else if (work1.camMode == 2) //仅触发下面相机
+            else if (camMode == 2) //仅触发下面相机
             {
                 str = "c2;";
                 testMsg.Text = "无";
@@ -348,7 +362,7 @@ namespace InspectWinformTB
                 SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
                 receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
             }
-            else if (work1.camMode == 3) //全部触发
+            else if (camMode == 3) //全部触发
             {
                 str = "c1;";
                 SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
@@ -372,7 +386,7 @@ namespace InspectWinformTB
                 }
             }
             
-            if (work1.camMode == 1) //仅开启上面的相机
+            if (camMode == 1) //仅开启上面的相机
             {
                 if (receiveData == "2" || receiveData == "1") //上ok下ng
                 {
@@ -391,7 +405,7 @@ namespace InspectWinformTB
                     testMsg.BackColor = Color.Red;
                 }
             }
-            else if (work1.camMode == 2) //仅开启下面的相机
+            else if (camMode == 2) //仅开启下面的相机
             {
                 if (receiveData == "3" || receiveData == "1") //上ng下ok
                 {
@@ -410,7 +424,7 @@ namespace InspectWinformTB
                     testMsg.BackColor = Color.Red;
                 }
             }
-            else if (work1.camMode == 3)
+            else if (camMode == 3)
             {
                 if (receiveData == "1")
                 {
