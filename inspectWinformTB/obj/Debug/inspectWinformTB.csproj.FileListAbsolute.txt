@@ -36,3 +36,5 @@ D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWin
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CoreCompileInputs.cache
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.exe
 D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.pdb
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.SuggestedBindingRedirects.cache
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\Debug\inspectWinformTB.csproj.CopyComplete

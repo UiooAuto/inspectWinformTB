@@ -1,0 +1,14 @@
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\bin\x64\Debug\inspectWinformTB.exe.config
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\bin\x64\Debug\inspectWinformTB.exe
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\bin\x64\Debug\inspectWinformTB.pdb
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\bin\x64\Debug\Newtonsoft.Json.dll
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\bin\x64\Debug\Newtonsoft.Json.xml
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.csproj.AssemblyReference.cache
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.csproj.SuggestedBindingRedirects.cache
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\InspectWinformTB.Form1.resources
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.Properties.Resources.resources
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.csproj.GenerateResource.cache
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.csproj.CoreCompileInputs.cache
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.csproj.CopyComplete
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.exe
+D:\XXYWORK\CODE\RiderCode\inspectWinformTB\inspectWinformTB\obj\x64\Debug\inspectWinformTB.pdb
