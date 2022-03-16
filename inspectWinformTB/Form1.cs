@@ -28,28 +28,24 @@ namespace InspectWinformTB
         private string inspectPath = Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")) +
                                      "\\startInspect.bat"; //批处理文件启动inspect路径
 
-        //inspect和plc的连接信息
-        ConnectInfo inspectConnectInfo;
-        ConnectInfo[] plcConnectArr = new ConnectInfo[3];
-
         //用于存放读取结果的数组
         public byte[] resByteArr = new byte[1024];
 
         //用于通信的Socket
-        Socket inspectSocket;
-        Socket plcSocket1;
+        /*Socket inspectSocket;
+        Socket plcSocket1;*/
 
         //用于多线程执行的对象
-        static Work work1 = new Work();
+        //static Work work1 = new Work();
 
         //准备plc所用的各种地址
-        string cam1CmdAds;
-        string cam1ResAds;
+        //string cam1CmdAds;
+        //string cam1ResAds;
 
         bool connectStatus = false;
         public int overTimeSet;
 
-        private Thread thread1;
+        private Thread thread;
 
         public Form1()
         {
@@ -67,11 +63,9 @@ namespace InspectWinformTB
             //查询inspect是否已启动，未启动则自动启动
             bool inspectRun = false;
 
-            //取消关闭安妮
+            //取消关闭按钮
             this.ControlBox = false;
             //新建Socket连接
-            inspectConnectInfo = new ConnectInfo();
-            plcConnectArr[0] = new ConnectInfo();
 
             //读取前一次的连接数据
             readSaveData();
@@ -156,8 +150,11 @@ namespace InspectWinformTB
                 }
 
                 //开始连接
-                startConnect();
-                minWindow();
+                bool v = startConnect();
+                if (v)
+                {
+                    minWindow();//连接成功才会最小化
+                }
             }
         }
 
@@ -185,21 +182,10 @@ namespace InspectWinformTB
 
         #region 连接功能
 
-        private void startConnect()
+        private bool startConnect()
         {
             testMsg.Text = "无";
             testMsg.BackColor = Color.Silver;
-            //给PLC连接地址赋值
-            if (!isEmpty(trigger1.Text) && !isEmpty(result1.Text))
-            {
-                cam1CmdAds = "D" + trigger1.Text + " 01";
-                cam1ResAds = "D" + result1.Text + " 01";
-            }
-            else
-            {
-                cam1CmdAds = null;
-                cam1ResAds = null;
-            }
 
             //当在有链接的时候点击，需要关闭所有连接
             if ("关闭连接".Equals(connectAll.Text))
@@ -212,11 +198,18 @@ namespace InspectWinformTB
             }
             else
             {
-                connectAllcon();
-                startWork();
+                bool v = connectAllcon();
+                if (v)
+                {
+                    startWork();
+                }
+                else
+                {
+                    return false;
+                }
             }
-
             enTextBoxs();
+            return true;
         }
 
         #endregion
@@ -272,12 +265,12 @@ namespace InspectWinformTB
         /// <summary>
         /// 建立所有连接
         /// </summary>
-        public void connectAllcon()
+        public bool connectAllcon()
         {
             if (!cam1En.Checked && !cam2En.Checked)
             {
                 MessageBox.Show("至少开启一个相机");
-                return;
+                return false;
             }
             //用于标识是否有连接建立成功
             bool flag = false;
@@ -298,7 +291,7 @@ namespace InspectWinformTB
                 else
                 {
                     MessageBox.Show("PLC连接超时");
-                    return ;
+                    return false;
                 }
             }
 
@@ -318,7 +311,7 @@ namespace InspectWinformTB
                 if (!inspectRun)
                 {
                     MessageBox.Show("视觉检测程序未开启");
-                    return ;
+                    return false;
                 }
 
                 //只有在有连接参数、有PLC连接成功、Inspect开启时才连接Inspect
@@ -335,10 +328,13 @@ namespace InspectWinformTB
                 connectAll.Text = "关闭连接";
                 connectAll.BackColor = Color.LimeGreen;
                 connectStatus = true;
+
+                return true;
             }
             else
             {
                 MessageBox.Show("连接失败");
+                return false;
             }
         }
 
@@ -528,25 +524,49 @@ namespace InspectWinformTB
 
         public void closeAllSocket()
         {
-            if (inspectSocket != null)
+            if (inspect != null)
             {
-                SocketUtilsTB.shutDownConnect(inspectSocket);
-                inspectSocket.Close();
-                inspectSocket = null;
-            }
-
-            if (plcSocket1 != null)
-            {
-                SocketUtilsTB.shutDownConnect(plcSocket1);
-                plcSocket1.Close();
-                plcSocket1 = null;
-                if (thread1!= null)
+                try
                 {
-                    thread1.Abort();
+                    inspect.Shutdown(SocketShutdown.Both);
+                }
+                catch
+                {
+                }
+                try
+                {
+                    inspect.Close();
+                }
+                catch
+                {
                 }
             }
 
-            work1.camMode = 0;
+            if (plc != null)
+            {
+                try
+                {
+                    plc.Shutdown(SocketShutdown.Both);
+                }
+                catch
+                {
+                }
+                try
+                {
+                    plc.Close();
+                }
+                catch
+                {
+                }
+            }
+            try
+            {
+                ((IDisposable)this).Dispose();
+            }
+            catch
+            {
+            }
+
             connectStatus = false;
         }
 
