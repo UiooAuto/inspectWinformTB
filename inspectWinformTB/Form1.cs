@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -170,6 +172,17 @@ namespace InspectWinformTB
 
         #endregion
 
+        #region 重做部分
+
+        #region 连接参数
+
+        public Socket inspect;
+        public Socket plc;
+
+        #endregion
+
+        #endregion
+
         #region 连接功能
 
         private void startConnect()
@@ -269,25 +282,52 @@ namespace InspectWinformTB
             //用于标识是否有连接建立成功
             bool flag = false;
 
-            if (plcSocket1 == null & !isEmpty(plcIp1.Text) & !isEmpty(plcPort1.Text))
+            if (plc == null & !isEmpty(plcIp1.Text) & !isEmpty(plcPort1.Text))//连接PLC
             {
-                plcConnectArr[0].ip = plcIp1.Text;
-                plcConnectArr[0].port = int.Parse(plcPort1.Text);
-                plcSocket1 = SocketUtilsTB.connectToTarget(plcConnectArr[0].ip, plcConnectArr[0].port);
-                if (plcSocket1 != null)
+                plc = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                plc .SendTimeout = 500;
+                plc .ReceiveTimeout = 500;
+
+                Ping ping = new Ping();
+                PingReply pingReply = ping.Send(plcIp1.Text, 1000);
+                if (pingReply.Status == IPStatus.Success)
                 {
+                    plc.Connect(new IPEndPoint(IPAddress.Parse(plcIp1.Text), int.Parse(plcPort1.Text)));
                     flag = true;
+                }
+                else
+                {
+                    MessageBox.Show("PLC连接超时");
+                    return ;
                 }
             }
 
             if (flag)
             {
-                //只有在有连接参数、有PLC连接成功时才连接Inspect
-                if (inspectSocket == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
+                bool inspectRun = false;//inspect是否开启了
+                Process[] processes = Process.GetProcesses();
+                //查找有没有inspect的进程
+                foreach (Process process in processes)
                 {
-                    inspectConnectInfo.ip = inspectIp.Text;
-                    inspectConnectInfo.port = int.Parse(inspectPort.Text);
-                    inspectSocket = SocketUtilsTB.connectToTarget(inspectConnectInfo.ip, inspectConnectInfo.port);
+                    if (process.ProcessName.Equals("iworks"))
+                    {
+                        inspectRun = true;
+                    }
+                }
+
+                if (!inspectRun)
+                {
+                    MessageBox.Show("视觉检测程序未开启");
+                    return ;
+                }
+
+                //只有在有连接参数、有PLC连接成功、Inspect开启时才连接Inspect
+                if (inspect == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
+                {
+                    inspect = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    inspect.SendTimeout = 500;
+                    inspect.ReceiveTimeout = 500;
+                    inspect.Connect(new IPEndPoint(IPAddress.Parse(inspectIp.Text), int.Parse(inspectPort.Text)));
                 }
                 
                 testMsg.Text = "无";
