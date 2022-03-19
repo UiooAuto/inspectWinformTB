@@ -853,17 +853,6 @@ namespace InspectWinformTB
 
         #endregion
 
-        #region 给plc发送信息
-
-        private string setPlcCmd(Socket socket, string plcAddress, string setResult)
-        {
-            string rtn = SocketUtilsTB.sendCmdToTarget(socket, "01WWR" + plcAddress + setResult + "\r\n");
-            //MessageBox.Show("01WWR" + plcAddress + setResult + "\r\n");
-            return rtn;
-        }
-
-        #endregion
-
         private void save_Click(object sender, EventArgs e)
         {
             saveDatas();
