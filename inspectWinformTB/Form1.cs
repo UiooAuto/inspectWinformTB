@@ -198,6 +198,9 @@ namespace InspectWinformTB
                 string cmd = readCmd + trigger1.Text + " 01\r\n";
                 plc.Send(Encoding.UTF8.GetBytes(cmd));
                 int v = plc.Receive(recBytes);
+
+                Thread.Sleep(30);
+
                 string cmdString = Encoding.UTF8.GetString(recBytes, 0, v);
 
                 int indexOf = cmdString.IndexOf('\r');
@@ -208,21 +211,27 @@ namespace InspectWinformTB
 
                 if (cmdString != lastCmd)//代表指令有更新
                 {
-                    if ("11OK0001".Equals(cmd))//0代表一个也不触发
+                    if ("11OK0000".Equals(cmdString))//0代表一个也不触发
                     {
                         triggerCam = 0;
+                        trigger1State.BackColor = Color.Yellow;
+                        trigger2State.BackColor = Color.Yellow;
                     }
-                    else if ("11OK0001".Equals(cmd))//发1代表全部触发
+                    else if ("11OK0001".Equals(cmdString))//发1代表全部触发
                     {
                         triggerCam = 3;
+                        trigger1State.BackColor = Color.Green;
+                        trigger2State.BackColor = Color.Green;
                     }
-                    else if ("11OK0002".Equals(cmd))//发2代表触发上
+                    else if ("11OK0002".Equals(cmdString))//发2代表触发上
                     {
                         triggerCam = 1;
+                        trigger1State.BackColor = Color.Green;
                     }
-                    else if ("11OK0003".Equals(cmd))//发3代表触发下
+                    else if ("11OK0003".Equals(cmdString))//发3代表触发下
                     {
                         triggerCam = 2;
+                        trigger2State.BackColor = Color.Green;
                     }
                     lastCmd = cmdString;
                 }
@@ -235,8 +244,6 @@ namespace InspectWinformTB
 
                 if (triggerCam == 0)//不触发需要更新标签显示并开启下一次循环
                 {
-                    trigger1State.BackColor = Color.Yellow;
-                    trigger1State.BackColor = Color.Yellow;
                     continue;
                 }
                 if ((triggerCam == 1) || (triggerCam == 3))//如果命令上相机检测或所有相机检测，则上相机检测
@@ -244,6 +251,7 @@ namespace InspectWinformTB
                     Array.Clear(recBytes, 0, recBytes.Length);
                     inspect.Send(Encoding.UTF8.GetBytes("c1;"));
                     int v1 = inspect.Receive(recBytes);
+                    Thread.Sleep(30);
                     cam1Result = Encoding.UTF8.GetString(recBytes, 0, v1);
                 }
                 if ((triggerCam == 2) || (triggerCam == 3))//如果命令下相机检测或所有相机检测，则下相机检测
@@ -251,6 +259,7 @@ namespace InspectWinformTB
                     Array.Clear(recBytes, 0, recBytes.Length);
                     inspect.Send(Encoding.UTF8.GetBytes("c2;"));
                     int v2 = inspect.Receive(recBytes);
+                    Thread.Sleep(30);
                     cam2Result = Encoding.UTF8.GetString(recBytes, 0, v2);
                 }
 
@@ -260,15 +269,17 @@ namespace InspectWinformTB
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                     else
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                 }
                 else if (triggerCam == 2)//只检测下面并且检测ok则返回plc1，检测NG则返回2
@@ -277,15 +288,17 @@ namespace InspectWinformTB
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                     else
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                 }
                 else if (triggerCam == 3)
@@ -295,36 +308,41 @@ namespace InspectWinformTB
                         //需要给plc写入结果
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                     else if (("1" == cam1Result) && ("1" != cam2Result))//上下全检测，上ok下ng
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                     else if (("1" != cam1Result) && ("1" == cam2Result))//上下全检测，上ng下ok
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                     else if (("1" != cam1Result) && ("1" != cam2Result))//上下全检测，全部ng
                     {
                         Array.Clear(recBytes, 0, recBytes.Length);
                         string cmdStr = writeCmd + result1.Text + " 01 0004\r\n";
-                        inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = inspect.Receive(recBytes);
+                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                        int v1 = plc.Receive(recBytes);
+                        Thread.Sleep(30);
                     }
                 }
                 //清楚PLC的触发位
                 Array.Clear(recBytes, 0, recBytes.Length);
                 string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                inspect.Receive(recBytes);
+                plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                plc.Receive(recBytes);
+                Thread.Sleep(30);
             }
         }
 
@@ -350,6 +368,7 @@ namespace InspectWinformTB
             }
             else
             {
+                plc = null;
                 bool v = connectAllcon();
                 if (v)
                 {
@@ -360,7 +379,7 @@ namespace InspectWinformTB
                     return false;
                 }
             }
-            enTextBoxs();
+            //enTextBoxs();
             return true;
         }
 
@@ -375,7 +394,8 @@ namespace InspectWinformTB
         {
             //仅当对应plc有连接的时候，才开启线程
             if (plc != null)
-            {                
+            {
+                san = true;
                 Thread cheakthread = new Thread(new ThreadStart(Work));
                 cheakthread.IsBackground = true;
                 cheakthread.Start();
@@ -442,8 +462,8 @@ namespace InspectWinformTB
                 if (inspect == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
                 {
                     inspect = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    inspect.SendTimeout = 500;
-                    inspect.ReceiveTimeout = 500;
+                    inspect.SendTimeout = 5000;
+                    inspect.ReceiveTimeout = 5000;
                     inspect.Connect(new IPEndPoint(IPAddress.Parse(inspectIp.Text), int.Parse(inspectPort.Text)));
                 }
                 
@@ -553,13 +573,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "上面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -568,13 +588,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -586,13 +606,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "下面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -601,13 +621,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -619,13 +639,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "全部OK";
                     testMsg.BackColor = Color.LimeGreen;
@@ -634,13 +654,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -649,13 +669,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -664,13 +684,13 @@ namespace InspectWinformTB
                 {
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr = writeCmd + result1.Text + " 01 0004\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
-                    int v1 = inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = plc.Receive(Bytes);
 
                     Array.Clear(Bytes, 0, Bytes.Length);
                     string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    inspect.Receive(Bytes);
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(Bytes);
 
                     testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
@@ -705,6 +725,8 @@ namespace InspectWinformTB
 
         public void closeAllSocket()
         {
+            san = false;
+
             if (inspect != null)
             {
                 try
@@ -742,7 +764,7 @@ namespace InspectWinformTB
             }
             try
             {
-                ((IDisposable)this).Dispose();
+                //((IDisposable)this).Dispose();
             }
             catch
             {
@@ -791,6 +813,8 @@ namespace InspectWinformTB
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            san = false;
+            Thread.Sleep(30);
             DialogResult
                 TS = MessageBox.Show("确认退出？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question); //弹出提示是否退出
             if (TS == DialogResult.Yes)
