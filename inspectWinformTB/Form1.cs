@@ -322,7 +322,7 @@ namespace InspectWinformTB
                 }
                 //清楚PLC的触发位
                 Array.Clear(recBytes, 0, recBytes.Length);
-                string cmdStr1 = writeCmd + result1.Text + " 01 0000\r\n";
+                string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
                 inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
                 inspect.Receive(recBytes);
             }
@@ -373,38 +373,10 @@ namespace InspectWinformTB
         /// </summary>
         public void startWork()
         {
-            overTimeSet = (int)(double.Parse(overTime.Text) * 1000 / 1);
             //仅当对应plc有连接的时候，才开启线程
-            if (plcSocket1 != null)
-            {
-                work1.plcSocket = plcSocket1;
-                work1.localSocket = inspectSocket;
-                work1.camCmdAds = cam1CmdAds;
-                work1.camResAds = cam1ResAds;
-                work1.san = true;
-                work1.triggerState1 = trigger1State;
-                work1.triggerState2 = trigger2State;
-                work1.triggerState3 = testMsg;
-                /*if (cam1En.Checked && !cam2En.Checked)
-                {
-                    work1.camMode = 1;
-                }
-                else if (!cam1En.Checked && cam2En.Checked)
-                {
-                    work1.camMode = 2;
-                }
-                else if (cam1En.Checked && cam2En.Checked)
-                {
-                    work1.camMode = 3;
-                }*/
-                work1.overTime = overTimeSet;
-                work1.connectStuts = 0;
-
-                thread1 = new Thread(new ThreadStart(work1.go));
-                thread1.Name = "cam1";
-                thread1.Start();
-                
-                Thread cheakthread = new Thread(new ThreadStart(AutoCheckConnect));
+            if (plc != null)
+            {                
+                Thread cheakthread = new Thread(new ThreadStart(Work));
                 cheakthread.IsBackground = true;
                 cheakthread.Start();
             }
@@ -516,8 +488,7 @@ namespace InspectWinformTB
         #region 相机触发测试
 
         private void cmdCam1_Click(object sender, EventArgs e)
-        {
-            
+        {            
             string str = "";
             string receiveData = "";
             int camMode = 0;
@@ -533,32 +504,34 @@ namespace InspectWinformTB
             {
                 camMode = 3;
             }
-            
+
+            byte[] Bytes = new byte[2048];
             if (camMode == 1) //仅触发上面相机
             {
-                str = "c1;";
-                testMsg.Text = "无";
-                testMsg.BackColor = Color.Silver;
-                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
-                receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+                Array.Clear(Bytes, 0, Bytes.Length);
+                inspect.Send(Encoding.UTF8.GetBytes("c1;"));
+                int v1 = inspect.Receive(Bytes);
+                receiveData = Encoding.UTF8.GetString(Bytes, 0, v1);
             }
             else if (camMode == 2) //仅触发下面相机
             {
-                str = "c2;";
-                testMsg.Text = "无";
-                testMsg.BackColor = Color.Silver;
-                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
-                receiveData = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+                Array.Clear(Bytes, 0, Bytes.Length);
+                inspect.Send(Encoding.UTF8.GetBytes("c2;"));
+                int v1 = inspect.Receive(Bytes);
+                receiveData = Encoding.UTF8.GetString(Bytes, 0, v1);
             }
             else if (camMode == 3) //全部触发
             {
-                str = "c1;";
-                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
-                var receiveData1 = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
-                Array.Clear(resByteArr,0,resByteArr.Length);
-                str = "c2;";
-                SocketUtilsTB.sendCmdToTarget(inspectSocket, str);
-                var receiveData2 = SocketUtilsTB.receiveDataFromTarget(inspectSocket, resByteArr);
+                Array.Clear(Bytes, 0, Bytes.Length);
+                inspect.Send(Encoding.UTF8.GetBytes("c1;"));
+                int v1 = inspect.Receive(Bytes);
+                string receiveData1 = Encoding.UTF8.GetString(Bytes, 0, v1);
+
+                Array.Clear(Bytes, 0, Bytes.Length);
+                inspect.Send(Encoding.UTF8.GetBytes("c2;"));
+                int v2 = inspect.Receive(Bytes);
+                string receiveData2 = Encoding.UTF8.GetString(Bytes, 0, v2);
+
                 if ("1".Equals(receiveData1) && "1".Equals(receiveData2))
                 {
                     receiveData = "1";
@@ -578,17 +551,31 @@ namespace InspectWinformTB
             {
                 if (receiveData == "2" || receiveData == "1") //上ok下ng
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "上面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n"); //3代表上面NG
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
@@ -597,17 +584,31 @@ namespace InspectWinformTB
             {
                 if (receiveData == "3" || receiveData == "1") //上ng下ok
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "下面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n"); //2代表下面NG
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
@@ -616,33 +617,61 @@ namespace InspectWinformTB
             {
                 if (receiveData == "1")
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0001\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "全部OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
                 else if (receiveData == "2")
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0002\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "3")
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0003\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
                 else if (receiveData == "4")
                 {
-                    setPlcCmd(plcSocket1, cam1ResAds, " 0004\r\n");
-                    Thread.Sleep(30);
-                    setPlcCmd(plcSocket1, cam1CmdAds, " 0000\r\n");
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr = writeCmd + result1.Text + " 01 0004\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr));
+                    int v1 = inspect.Receive(Bytes);
+
+                    Array.Clear(Bytes, 0, Bytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    inspect.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    inspect.Receive(Bytes);
+
                     testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
                 }
@@ -657,9 +686,9 @@ namespace InspectWinformTB
         {
             while (true)
             {
-                if (work1 != null)
+                if (plc != null)
                 {
-                    if (work1.connectStuts == 2)
+                    if (!plc.Connected)
                     {
                         startConnect();
                         testMsg.Text = "连接中断";
