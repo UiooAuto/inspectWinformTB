@@ -576,11 +576,6 @@ namespace InspectWinformTB
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
 
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
-
                     testMsg.Text = "上面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
@@ -590,11 +585,6 @@ namespace InspectWinformTB
                     string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
-
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
 
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -609,11 +599,6 @@ namespace InspectWinformTB
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
 
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
-
                     testMsg.Text = "下面胶条OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
@@ -623,11 +608,6 @@ namespace InspectWinformTB
                     string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
-
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
 
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -642,11 +622,6 @@ namespace InspectWinformTB
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
 
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
-
                     testMsg.Text = "全部OK";
                     testMsg.BackColor = Color.LimeGreen;
                 }
@@ -656,11 +631,6 @@ namespace InspectWinformTB
                     string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
-
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
 
                     testMsg.Text = "下面胶条NG";
                     testMsg.BackColor = Color.Red;
@@ -672,11 +642,6 @@ namespace InspectWinformTB
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
 
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
-
                     testMsg.Text = "上面胶条NG";
                     testMsg.BackColor = Color.Red;
                 }
@@ -687,15 +652,14 @@ namespace InspectWinformTB
                     plc.Send(Encoding.UTF8.GetBytes(cmdStr));
                     int v1 = plc.Receive(Bytes);
 
-                    Array.Clear(Bytes, 0, Bytes.Length);
-                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                    plc.Receive(Bytes);
-
                     testMsg.Text = "全部NG";
                     testMsg.BackColor = Color.Red;
                 }
             }
+            Array.Clear(Bytes, 0, Bytes.Length);
+            string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+            plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+            plc.Receive(Bytes);
         }
 
         #endregion
