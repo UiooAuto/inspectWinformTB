@@ -159,6 +159,10 @@ namespace InspectWinformTB
                 {
                     minWindow();//连接成功才会最小化
                 }
+                else
+                {
+                    MessageBox.Show("连接失败");
+                }
             }
         }
 
@@ -184,7 +188,8 @@ namespace InspectWinformTB
 
         #region 程序主要工作流程
 
-        public bool san = false;
+        public static bool san = false;
+        public static bool readByPass = false;//暂停主线程读取 = false;
         public void Work()
         {
             string lastCmd = "";
@@ -193,156 +198,160 @@ namespace InspectWinformTB
                 string cam1Result = "";
                 string cam2Result = "";
                 int triggerCam = 0;
-                //读取plc
-                byte[] recBytes = new byte[1024 * 1024];
-                string cmd = readCmd + trigger1.Text + " 01\r\n";
-                plc.Send(Encoding.UTF8.GetBytes(cmd));
-                int v = plc.Receive(recBytes);
 
-                Thread.Sleep(30);
-
-                string cmdString = Encoding.UTF8.GetString(recBytes, 0, v);
-
-                int indexOf = cmdString.IndexOf('\r');
-                if (indexOf != -1)
+                if (!readByPass)
                 {
-                    cmdString = cmdString.Substring(0, indexOf);
-                }
+                    //读取plc
+                    byte[] recBytes = new byte[1024 * 1024];
+                    string cmd = readCmd + trigger1.Text + " 01\r\n";
+                    plc.Send(Encoding.UTF8.GetBytes(cmd));
+                    int v = plc.Receive(recBytes);
 
-                if (cmdString != lastCmd)//代表指令有更新
-                {
-                    if ("11OK0000".Equals(cmdString))//0代表一个也不触发
-                    {
-                        triggerCam = 0;
-                        trigger1State.BackColor = Color.Yellow;
-                        trigger2State.BackColor = Color.Yellow;
-                    }
-                    else if ("11OK0001".Equals(cmdString))//发1代表全部触发
-                    {
-                        triggerCam = 3;
-                        trigger1State.BackColor = Color.Green;
-                        trigger2State.BackColor = Color.Green;
-                    }
-                    else if ("11OK0002".Equals(cmdString))//发2代表触发上
-                    {
-                        triggerCam = 1;
-                        trigger1State.BackColor = Color.Green;
-                    }
-                    else if ("11OK0003".Equals(cmdString))//发3代表触发下
-                    {
-                        triggerCam = 2;
-                        trigger2State.BackColor = Color.Green;
-                    }
-                    lastCmd = cmdString;
-                }
-                else
-                {
-                    lastCmd = cmdString;
-                    continue;
-                }
-
-
-                if (triggerCam == 0)//不触发需要更新标签显示并开启下一次循环
-                {
-                    continue;
-                }
-                if ((triggerCam == 1) || (triggerCam == 3))//如果命令上相机检测或所有相机检测，则上相机检测
-                {
-                    Array.Clear(recBytes, 0, recBytes.Length);
-                    inspect.Send(Encoding.UTF8.GetBytes("c1;"));
-                    int v1 = inspect.Receive(recBytes);
                     Thread.Sleep(30);
-                    cam1Result = Encoding.UTF8.GetString(recBytes, 0, v1);
-                }
-                if ((triggerCam == 2) || (triggerCam == 3))//如果命令下相机检测或所有相机检测，则下相机检测
-                {
-                    Array.Clear(recBytes, 0, recBytes.Length);
-                    inspect.Send(Encoding.UTF8.GetBytes("c2;"));
-                    int v2 = inspect.Receive(recBytes);
-                    Thread.Sleep(30);
-                    cam2Result = Encoding.UTF8.GetString(recBytes, 0, v2);
-                }
 
-                if (triggerCam == 1)
-                {
-                    if ("1" == cam1Result)//只检测上面并且检测ok则返回plc1，检测NG则返回3
+                    string cmdString = Encoding.UTF8.GetString(recBytes, 0, v);
+
+                    int indexOf = cmdString.IndexOf('\r');
+                    if (indexOf != -1)
                     {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
+                        cmdString = cmdString.Substring(0, indexOf);
+                    }
+
+                    if (cmdString != lastCmd)//代表指令有更新
+                    {
+                        if ("11OK0000".Equals(cmdString))//0代表一个也不触发
+                        {
+                            triggerCam = 0;
+                            trigger1State.BackColor = Color.Yellow;
+                            trigger2State.BackColor = Color.Yellow;
+                        }
+                        else if ("11OK0001".Equals(cmdString))//发1代表全部触发
+                        {
+                            triggerCam = 3;
+                            trigger1State.BackColor = Color.Green;
+                            trigger2State.BackColor = Color.Green;
+                        }
+                        else if ("11OK0002".Equals(cmdString))//发2代表触发上
+                        {
+                            triggerCam = 1;
+                            trigger1State.BackColor = Color.Green;
+                        }
+                        else if ("11OK0003".Equals(cmdString))//发3代表触发下
+                        {
+                            triggerCam = 2;
+                            trigger2State.BackColor = Color.Green;
+                        }
+                        lastCmd = cmdString;
                     }
                     else
                     {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
+                        lastCmd = cmdString;
+                        continue;
                     }
+
+
+                    if (triggerCam == 0)//不触发需要更新标签显示并开启下一次循环
+                    {
+                        continue;
+                    }
+                    if ((triggerCam == 1) || (triggerCam == 3))//如果命令上相机检测或所有相机检测，则上相机检测
+                    {
+                        Array.Clear(recBytes, 0, recBytes.Length);
+                        inspect.Send(Encoding.UTF8.GetBytes("c1;"));
+                        int v1 = inspect.Receive(recBytes);
+                        Thread.Sleep(30);
+                        cam1Result = Encoding.UTF8.GetString(recBytes, 0, v1);
+                    }
+                    if ((triggerCam == 2) || (triggerCam == 3))//如果命令下相机检测或所有相机检测，则下相机检测
+                    {
+                        Array.Clear(recBytes, 0, recBytes.Length);
+                        inspect.Send(Encoding.UTF8.GetBytes("c2;"));
+                        int v2 = inspect.Receive(recBytes);
+                        Thread.Sleep(30);
+                        cam2Result = Encoding.UTF8.GetString(recBytes, 0, v2);
+                    }
+
+                    if (triggerCam == 1)
+                    {
+                        if ("1" == cam1Result)//只检测上面并且检测ok则返回plc1，检测NG则返回3
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                        else
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                    }
+                    else if (triggerCam == 2)//只检测下面并且检测ok则返回plc1，检测NG则返回2
+                    {
+                        if ("1" == cam2Result)
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                        else
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                    }
+                    else if (triggerCam == 3)
+                    {
+                        if (("1" == cam1Result) && ("1" == cam2Result))//上下全检测，全部ok
+                        {
+                            //需要给plc写入结果
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                        else if (("1" == cam1Result) && ("1" != cam2Result))//上下全检测，上ok下ng
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                        else if (("1" != cam1Result) && ("1" == cam2Result))//上下全检测，上ng下ok
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                        else if (("1" != cam1Result) && ("1" != cam2Result))//上下全检测，全部ng
+                        {
+                            Array.Clear(recBytes, 0, recBytes.Length);
+                            string cmdStr = writeCmd + result1.Text + " 01 0004\r\n";
+                            plc.Send(Encoding.UTF8.GetBytes(cmdStr));
+                            int v1 = plc.Receive(recBytes);
+                            Thread.Sleep(30);
+                        }
+                    }
+                    //清楚PLC的触发位
+                    Array.Clear(recBytes, 0, recBytes.Length);
+                    string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
+                    plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
+                    plc.Receive(recBytes);
+                    Thread.Sleep(30);
                 }
-                else if (triggerCam == 2)//只检测下面并且检测ok则返回plc1，检测NG则返回2
-                {
-                    if ("1" == cam2Result)
-                    {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                    else
-                    {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                }
-                else if (triggerCam == 3)
-                {
-                    if (("1" == cam1Result) && ("1" == cam2Result))//上下全检测，全部ok
-                    {
-                        //需要给plc写入结果
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0001\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                    else if (("1" == cam1Result) && ("1" != cam2Result))//上下全检测，上ok下ng
-                    {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0002\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                    else if (("1" != cam1Result) && ("1" == cam2Result))//上下全检测，上ng下ok
-                    {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0003\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                    else if (("1" != cam1Result) && ("1" != cam2Result))//上下全检测，全部ng
-                    {
-                        Array.Clear(recBytes, 0, recBytes.Length);
-                        string cmdStr = writeCmd + result1.Text + " 01 0004\r\n";
-                        plc.Send(Encoding.UTF8.GetBytes(cmdStr));
-                        int v1 = plc.Receive(recBytes);
-                        Thread.Sleep(30);
-                    }
-                }
-                //清楚PLC的触发位
-                Array.Clear(recBytes, 0, recBytes.Length);
-                string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
-                plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
-                plc.Receive(recBytes);
-                Thread.Sleep(30);
             }
         }
 
@@ -379,7 +388,7 @@ namespace InspectWinformTB
                     return false;
                 }
             }
-            //enTextBoxs();
+            enTextBoxs();
             return true;
         }
 
@@ -390,13 +399,14 @@ namespace InspectWinformTB
         /// <summary>
         /// 启动程序主要功能
         /// </summary>
+        Thread cheakthread;
         public void startWork()
         {
             //仅当对应plc有连接的时候，才开启线程
             if (plc != null)
             {
                 san = true;
-                Thread cheakthread = new Thread(new ThreadStart(Work));
+                cheakthread = new Thread(new ThreadStart(Work));
                 cheakthread.IsBackground = true;
                 cheakthread.Start();
             }
@@ -418,6 +428,22 @@ namespace InspectWinformTB
             }
             //用于标识是否有连接建立成功
             bool flag = false;
+            bool inspectRun = false;//inspect是否开启了
+            Process[] processes = Process.GetProcesses();
+            //查找有没有inspect的进程
+            foreach (Process process in processes)
+            {
+                if (process.ProcessName.Equals("iworks"))
+                {
+                    inspectRun = true;
+                }
+            }
+
+            if (!inspectRun)
+            {
+                MessageBox.Show("视觉检测程序未开启");
+                return false;
+            }
 
             if (plc == null & !isEmpty(plcIp1.Text) & !isEmpty(plcPort1.Text))//连接PLC
             {
@@ -441,23 +467,6 @@ namespace InspectWinformTB
 
             if (flag)
             {
-                bool inspectRun = false;//inspect是否开启了
-                Process[] processes = Process.GetProcesses();
-                //查找有没有inspect的进程
-                foreach (Process process in processes)
-                {
-                    if (process.ProcessName.Equals("iworks"))
-                    {
-                        inspectRun = true;
-                    }
-                }
-
-                if (!inspectRun)
-                {
-                    MessageBox.Show("视觉检测程序未开启");
-                    return false;
-                }
-
                 //只有在有连接参数、有PLC连接成功、Inspect开启时才连接Inspect
                 if (inspect == null & !isEmpty(inspectIp.Text) & !isEmpty(inspectPort.Text))
                 {
@@ -508,7 +517,10 @@ namespace InspectWinformTB
         #region 相机触发测试
 
         private void cmdCam1_Click(object sender, EventArgs e)
-        {            
+        {
+            readByPass = true;
+            Thread.Sleep(700);
+
             string str = "";
             string receiveData = "";
             int camMode = 0;
@@ -660,6 +672,8 @@ namespace InspectWinformTB
             string cmdStr1 = writeCmd + trigger1.Text + " 01 0000\r\n";
             plc.Send(Encoding.UTF8.GetBytes(cmdStr1));
             plc.Receive(Bytes);
+
+            readByPass = false;
         }
 
         #endregion
@@ -690,6 +704,9 @@ namespace InspectWinformTB
         public void closeAllSocket()
         {
             san = false;
+
+            Thread.Sleep(500);
+            cheakthread.Abort();
 
             if (inspect != null)
             {
@@ -752,9 +769,6 @@ namespace InspectWinformTB
 
                 trigger1.ReadOnly = true;
                 result1.ReadOnly = true;
-
-                cam1En.Enabled = false;
-                cam2En.Enabled = false;
             }
             else
             {
@@ -765,9 +779,6 @@ namespace InspectWinformTB
 
                 trigger1.ReadOnly = false;
                 result1.ReadOnly = false;
-
-                cam1En.Enabled = true;
-                cam2En.Enabled = true;
             }
         }
 
