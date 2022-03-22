@@ -720,7 +720,15 @@ namespace InspectWinformTB
             san = false;
 
             Thread.Sleep(500);
-            cheakthread.Abort();
+            try
+            {
+                cheakthread.Abort();
+
+            }
+            catch (Exception)
+            {
+                ;
+            }
 
             if (inspect != null)
             {
